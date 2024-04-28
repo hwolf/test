@@ -1,0 +1,22 @@
+name: Build Pull Request
+on: pull_request
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build Pull Request
+    runs-on: ubuntu22-8-32
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build
+        uses: ./.github/actions/build
+      - name: Upload Build Reports
+        #uses: actions/upload-artifact@v4
+        if: failure()
+        #with:
+        #  name: build-reports
+        #  path: '**/build/reports/'
+        run: echo "Upload Build Reports"
