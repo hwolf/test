@@ -24,10 +24,10 @@ jobs:
         with:
           version: "${{env.version }}"
           token: "${{ secrets.GITHUB_TOKEN }}"
-      #- name: Publish to GitHub Packages
-      #  run: mvn --batch-mode deploy -Drevision="${{ env.version }}"
-      #  env:
-      #    GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      - name: Publish to GitHub Packages
+        run: mvn --batch-mode deploy -Drevision="${{ env.version }}"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
       - name: Publish GitHub Release
         run: gh release create ${{ format('v{0}', env.version) }} --notes "Test"
         env:
