@@ -33,14 +33,20 @@ jobs:
         run: mvn --batch-mode deploy -Drevision="${{ env.version }}" -DskipTests
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      - name: Publish JavaDocs
+        if:  github.ref == 'refs/heads/main'
+        uses: JamesIves/github-pages-deploy-action@v4.6.0
+        with:
+          folder: build/apidocs
+          clean: true
+          branch: gh-pages
+          target-folder: apidocs
       - name: Generate Changelog
         id: changelog
         uses: orhun/git-cliff-action@v3
         with:
           config: ./.github/cliff.toml
           args: -t "${{ env.version }}"
-        env:
-          GITHUB_REPO: ${{ github.repository }}
       - name: Publish GitHub Release
         run: gh release create "v${{ env.version }}" --title "v${{ env.version }}" --notes-file ${{steps.changelog.outputs.changelog }}
         env:
