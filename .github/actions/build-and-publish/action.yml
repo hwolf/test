@@ -30,7 +30,7 @@ runs:
         echo "version=$version" >> "$GITHUB_ENV"
     - name: XXX
       shell: bash
-      run: git tag --sort=-v:refname
+      run: echo "$(git tag --sort=-v:refname | grep v$base | head -n 1)"
     - name: Set version
       if: ${{ inputs.release == 'final' }}
       shell: bash
