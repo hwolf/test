@@ -28,15 +28,12 @@ runs:
         base="$(mvn help:evaluate -Dexpression=project.parent.version -q -DforceStdout)"
         version="$base-snapshot-$(date "+%Y%m%d-%H%M%S")"
         echo "version=$version" >> "$GITHUB_ENV"
-    - name: XXX
-      shell: bash
-      run: echo "$(git tag --sort=-v:refname | grep v$base | head -n 1)"
     - name: Set version
       if: ${{ inputs.release == 'final' }}
       shell: bash
       run: |
         base="$(mvn help:evaluate -Dexpression=project.parent.version -q -DforceStdout)"
-        version="$(git tag --sort=-v:refname | grep v$base | head -n 1)"
+        version="$(git tag --sort=-v:refname | grep v$base | head -n 1 && true)"
         version="${version:-v$base-0}"
         version="${version%%-*}-$(expr ${version#*} + 1)"
         echo "version=$version" >> "$GITHUB_ENV"
