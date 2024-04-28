@@ -33,8 +33,14 @@ jobs:
       - name: Publish JavaDocs
         run: "echo TODO: Publish JavaDocs"
       - name: Generate Changelog
-        run: "echo TODO: Generate Changelog"
+        uses: orhun/git-cliff-action@v3
+        with:
+          config: cliff.toml
+          args: --current
+        env:
+          OUTPUT: CHANGES.md
+          GITHUB_REPO: ${{ github.repository }}
       - name: Publish GitHub Release
-        run: gh release create ${{ format('v{0}', env.version) }} --notes "Test"
+        run: gh release create "v${{ env.version }}" --title "v${{ env.version }}" --notes CHANGES.md
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
