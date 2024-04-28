@@ -8,7 +8,7 @@ runs:
       with:
         java-version: '17'
         distribution: 'temurin'
-        #cache: maven
+        cache: maven
     - name: Build
       shell: bash
       run: echo "Verify ..." && java --version && ls -l && cat .m2/settings.xml
