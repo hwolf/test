@@ -17,7 +17,7 @@ jobs:
       - name: Set version
         run: |
           base="$(mvn help:evaluate -Dexpression=project.parent.version -q -DforceStdout)"
-          version="$(git tag --sort=-v:refname | grep -e "v$base" || true | head -n 1)"
+          version="$(git tag --sort=-v:refname | grep -e "^v$base" || true | head -n 1)"
           version="${version:1}"
           version="${version:-$base-0}"
           version="${version%%-*}"-"$(expr ${version#*-} + 1)"
@@ -42,6 +42,6 @@ jobs:
           OUTPUT: CHANGES.md
           GITHUB_REPO: ${{ github.repository }}
       - name: Publish GitHub Release
-        run: gh release create "v${{ env.version }}" --title "v${{ env.version }}" --notes CHANGES.md
+        run: gh release create "v${{ env.version }}" --title "v${{ env.version }}" --notes-file CHANGES.md
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
