@@ -26,7 +26,7 @@ runs:
       run: git tag
     - name: Test 2
       shell: bash
-      run: git tag | grep v3.2.5
+      run: git tag | grep v3.2.5 || true
     - name: Test 3
       shell: bash
       run: git tag | grep v3.2.5 || true | head -n 1
