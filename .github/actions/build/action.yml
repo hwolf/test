@@ -1,5 +1,10 @@
 name: Build
 description: 'Builds the project'
+inputs:
+  publish:
+    required: false
+    default: false
+    description: 'Whether to publish artifacts to GitHub Packages'
 runs:
   using: composite
   steps:
@@ -10,5 +15,9 @@ runs:
         distribution: 'temurin'
         cache: maven
     - name: Build
-      shell: bash
       run: mvn --batch-mode --update-snapshots verify
+    - name: Publish package
+      if: ${{ inputs.publish }}
+      run: mvn --batch-mode deploy
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
