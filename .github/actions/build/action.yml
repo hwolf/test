@@ -15,8 +15,10 @@ runs:
         distribution: 'temurin'
         cache: maven
     - name: Build
+      shell: bash
       run: mvn --batch-mode --update-snapshots verify
     - name: Publish package
+      shell: bash
       if: ${{ inputs.publish }}
       run: mvn --batch-mode deploy
       env:
