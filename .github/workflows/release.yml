@@ -20,7 +20,7 @@ jobs:
           version="$(git tag --sort=-v:refname | grep -e "v$base" || true | head -n 1)"
           version="${version:1}"
           version="${version:-$base-0}"
-          version="${version%%-*}-$(expr ${version#*-} + 1)"
+          version="${version%%-*}"-"$(expr ${version#*-} + 1)"
           echo version="$version" #>> "$GITHUB_ENV"
       - name: Build Project
         uses: ./.github/actions/build-project
