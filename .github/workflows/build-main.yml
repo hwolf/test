@@ -29,3 +29,5 @@ jobs:
           token: "${{ secrets.GITHUB_TOKEN }}"
       - name: Publish to GitHub Packages
         run: mvn --batch-mode deploy -Drevision="${{ env.version }}"
+        with:
+          token: "${{ secrets.GITHUB_TOKEN }}"
