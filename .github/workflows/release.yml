@@ -41,7 +41,7 @@ jobs:
           config: ./.github/cliff.toml
           args: --current
         env:
-          OUTPUT: CHANGES.md
+          #OUTPUT: CHANGES.md
           GITHUB_REPO: ${{ github.repository }}
       - name: XXXX
         run: |
