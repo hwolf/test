@@ -4,6 +4,7 @@ on:
 concurrency:
   group: "${{ github.workflow }}-${{ github.ref }}"
 jobs:
+  if: github.ref_protected
   build-and-publish:
     name: Build and Publish Release
     runs-on: ubuntu-latest
@@ -38,7 +39,6 @@ jobs:
         with:
           config: ./.github/cliff.toml
           args: -t "${{ env.version }}"
-
         env:
           GITHUB_REPO: ${{ github.repository }}
       - name: Publish GitHub Release
