@@ -31,4 +31,4 @@ jobs:
       - name: Publish GitHub Release
         run: gh release create ${{ format('v{0}', env.version) }} --notes "Test"
         env:
-          token: "${{ secrets.GITHUB_TOKEN }}"
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
