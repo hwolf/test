@@ -12,14 +12,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          #fetch-tags: true
       - name: Setup Java
         uses: ./.github/actions/setup-java
-      - name: XXXXXX
-        run: |
-          echo XXXXXXXXXXXXXXXXXXXXXXXXXXXX
-          git tag
-          echo XXXXXXXXXXXXXXXXXXXXXXXXXXXX
       - name: Set version
         run: |
           base="$(mvn help:evaluate -Dexpression=project.parent.version -q -DforceStdout)"
@@ -36,6 +30,10 @@ jobs:
         run: mvn --batch-mode deploy -Drevision="${{ env.version }}"
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      - name: Publish JavaDocs
+        run: "echo TODO: Publish JavaDocs"
+      - name: Generate Changelog
+        run: "echo TODO: Generate Changelog"
       - name: Publish GitHub Release
         run: gh release create ${{ format('v{0}', env.version) }} --notes "Test"
         env:

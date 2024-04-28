@@ -13,11 +13,12 @@ runs:
     - name: Build
       shell: bash
       run: mvn --batch-mode --update-snapshots verify -Drevision="${{ inputs.version }}"
-    - name: Upload Build Reports
+    - name: SonarQube
       shell: bash
-      #uses: actions/upload-artifact@v4
+      run: "echo TODO: SonarQube"
+    - name: Upload Build Reports
       if: failure()
-      #with:
-      #  name: build-reports
-      #  path: '**/build/reports/'
-      run: echo "Upload Build Reports"
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-reports
+        path: '**/target/surefire-reports/'
