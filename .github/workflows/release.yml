@@ -4,9 +4,9 @@ on:
 concurrency:
   group: "${{ github.workflow }}-${{ github.ref }}"
 jobs:
-  if: github.ref_protected
   build-and-publish:
     name: Build and Publish Release
+    if: github.ref_protected
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
