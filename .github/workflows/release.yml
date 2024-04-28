@@ -17,6 +17,7 @@ jobs:
       - name: Set version
         run: |
           base="$(mvn help:evaluate -Dexpression=project.parent.version -q -DforceStdout)"
+          echo version="$(git tag --sort=-v:refname | grep -e "v$base" || true | head -n 1)"
           version="$(git tag --sort=-v:refname | grep -e "v$base" || true | head -n 1)"
           version="${version:-$base-0}"
           version="${version%%-*}-$(expr ${version#*-} + 1)"
