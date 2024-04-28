@@ -21,15 +21,6 @@ runs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-    - name: Test 1
-      shell: bash
-      run: git tag
-    - name: Test 2
-      shell: bash
-      run: git tag | grep v3.2.5 || true
-    - name: Test 3
-      shell: bash
-      run: git tag | grep v3.2.5 || true | head -n 1
     - name: Set version
       if: ${{ inputs.release != 'final' }}
       shell: bash
@@ -42,7 +33,7 @@ runs:
       shell: bash
       run: |
         base="$(mvn help:evaluate -Dexpression=project.parent.version -q -DforceStdout)"
-        version="$(git tag --sort=-v:refname | grep v$base || true | head -n 1 && true)"
+        version="$(git tag --sort=-v:refname | grep v$base || true | head -n 1)"
         version="${version:-v$base-0}"
         version="${version%%-*}-$(expr ${version#*} + 1)"
         echo "version=$version" >> "$GITHUB_ENV"
