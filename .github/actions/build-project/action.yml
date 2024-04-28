@@ -14,10 +14,8 @@ runs:
       shell: bash
       run: mvn --batch-mode --update-snapshots verify -Drevision="${{ inputs.version }}"
     - name: Upload Build Reports
-      shell: bash
-      #uses: actions/upload-artifact@v4
       if: failure()
-      #with:
-      #  name: build-reports
-      #  path: '**/build/reports/'
-      run: echo "Upload Build Reports"
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-reports
+        path: '**/build/reports/'
