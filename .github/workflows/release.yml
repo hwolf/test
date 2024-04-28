@@ -28,21 +28,24 @@ jobs:
         with:
           version: "${{env.version }}"
           token: "${{ secrets.GITHUB_TOKEN }}"
-      - name: Publish to GitHub Packages
-        run: mvn --batch-mode deploy -Drevision="${{ env.version }}" -DskipTests
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-      - name: Publish JavaDocs
-        run: "echo TODO: Publish JavaDocs"
+      #- name: Publish to GitHub Packages
+      #  run: mvn --batch-mode deploy -Drevision="${{ env.version }}" -DskipTests
+      #  env:
+      #    GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      #- name: Publish JavaDocs
+      #  run: "echo TODO: Publish JavaDocs"
       - name: Generate Changelog
+        id: changelog
         uses: orhun/git-cliff-action@v3
         with:
-          config: cliff.toml
+          config: ./.github/cliff.toml
           args: --current
         env:
           OUTPUT: CHANGES.md
           GITHUB_REPO: ${{ github.repository }}
-      - name: Publish GitHub Release
-        run: gh release create "v${{ env.version }}" --title "v${{ env.version }}" --notes-file CHANGES.md
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      - name: XXXX
+        run: cat ${{steps.changelog.outputs.changelog }}
+      #- name: Publish GitHub Release
+      #  run: gh release create "v${{ env.version }}" --title "v${{ env.version }}" --notes-file ${{steps.changelog.outputs.changelog }}
+      #  env:
+      #    GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
