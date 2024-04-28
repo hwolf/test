@@ -1,0 +1,23 @@
+name: build-project
+description: 'Build Project'
+inputs:
+  version:
+    required: true
+    description: 'Version to build'
+  token:
+    required: true
+    description: 'GitHub token'
+runs:
+  using: composite
+  steps:
+    - name: Build
+      shell: bash
+      run: mvn --batch-mode --update-snapshots verify -Drevision="${{ inputs.version }}"
+    - name: Upload Build Reports
+      shell: bash
+      #uses: actions/upload-artifact@v4
+      if: failure()
+      #with:
+      #  name: build-reports
+      #  path: '**/build/reports/'
+      run: echo "Upload Build Reports"

@@ -15,8 +15,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Build and Deploy Snapshot
-        uses: ./.github/actions/build-and-publish
+      - name: Setup Java
+        uses: ./.github/actions/setup-java
+      - name: Set version
+        run: |
+          base="$(mvn help:evaluate -Dexpression=project.parent.version -q -DforceStdout)"
+          version="$base-snapshot-$(date "+%Y%m%d-%H%M%S")"
+          echo "version=$version" >> "$GITHUB_ENV"
+      - name: Build
+        uses: ./.github/actions/build-project
         with:
-          release: snapshot
+          version: "${{env.version }}"
           token: "${{ secrets.GITHUB_TOKEN }}"
+      - name: Publish to GitHub Packages
+        run: mvn --batch-mode deploy -Drevision="${{ env.version }}"
