@@ -3,8 +3,6 @@ on:
   workflow_dispatch
 concurrency:
   group: "${{ github.workflow }}-${{ github.ref }}"
-permissions:
-  packages: write
 jobs:
   build-and-publish:
     name: Build and Publish Release
@@ -28,6 +26,8 @@ jobs:
           token: "${{ secrets.GITHUB_TOKEN }}"
       #- name: Publish to GitHub Packages
       #  run: mvn --batch-mode deploy -Drevision="${{ env.version }}"
+      #  env:
+      #    GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
       - name: Publish GitHub Release
         run: gh release create ${{ format('v{0}', env.version) }} --notes "Test"
         env:
