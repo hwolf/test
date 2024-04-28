@@ -14,6 +14,11 @@ jobs:
           fetch-tags: true
       - name: Setup Java
         uses: ./.github/actions/setup-java
+      - name: XXXXXX
+        run: |
+          echo XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+          git tag
+          echo XXXXXXXXXXXXXXXXXXXXXXXXXXXX
       - name: Set version
         run: |
           base="$(mvn help:evaluate -Dexpression=project.parent.version -q -DforceStdout)"
