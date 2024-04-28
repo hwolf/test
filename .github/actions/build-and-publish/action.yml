@@ -33,15 +33,11 @@ runs:
       shell: bash
       run: |
         base="$(mvn help:evaluate -Dexpression=project.parent.version -q -DforceStdout)"
-        echo AA $base
+        git tag --sort=-v:refname
         version="$(git tag --sort=-v:refname | grep v$base | head -n 1)"
-        echo BB $version
         version="${version:-v$base-0}"
-        echo CC $version
         version="${version%%-*}-$(expr ${version#*} + 1)"
-        echo DD $version
         echo "version=$version" >> "$GITHUB_ENV"
-        echo EE
         echo FF "${{ env.version }}"
     - name: Build
       shell: bash
