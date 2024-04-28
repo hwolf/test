@@ -39,7 +39,8 @@ jobs:
         uses: orhun/git-cliff-action@v3
         with:
           config: ./.github/cliff.toml
-          args: --current
+          args: -t "${{ env.version }}"
+
         env:
           #OUTPUT: CHANGES.md
           GITHUB_REPO: ${{ github.repository }}
