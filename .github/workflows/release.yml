@@ -19,11 +19,12 @@ jobs:
           base="$(mvn help:evaluate -Dexpression=project.parent.version -q -DforceStdout)"
           version="$(git tag --sort=-v:refname | grep -e "v$base" || true | head -n 1)"
           version="${version:1}"
+          echo A $version
           version="${version:-$base-0}"
-          echo version="${version%%-*}"-"$(expr ${version#*-} + 1)"
-          version="$(expr ${version#*-} + 1)"
+          echo B $version
           #version="${version%%-*}"-"$(expr ${version#*-} + 1)"
-          echo version="$version" #>> "$GITHUB_ENV"
+          echo C $version
+          #echo version="$version" >> "$GITHUB_ENV"
       - name: Build Project
         uses: ./.github/actions/build-project
         with:
