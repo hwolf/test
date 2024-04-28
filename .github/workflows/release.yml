@@ -6,13 +6,13 @@ concurrency:
 permissions:
   packages: write
 jobs:
-  build-and-publish-snapshot:
+  build-and-publish:
     name: Build and Publish Release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Build and Deploy Snapshot
+      - name: Build and Publish
         uses: ./.github/actions/build-and-publish
         with:
           release: final
