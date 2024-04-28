@@ -4,10 +4,10 @@ on:
     branches:
       - main
       - "spring-boot-*"
-#permissions:
-#  actions: write
 concurrency:
   group: "${{ github.workflow }}-${{ github.ref }}"
+permissions:
+  packages: write
 jobs:
   build-and-deploy-snapshot:
     name: Build and Deploy Snapshot
