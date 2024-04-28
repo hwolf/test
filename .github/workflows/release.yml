@@ -46,7 +46,7 @@ jobs:
       - name: XXXX
         run: |
           echo ${{steps.changelog.outputs.changelog }}
-          find . -name ${{steps.changelog.outputs.changelog }}
+          ls -l git-cliff
           cat ${{steps.changelog.outputs.changelog }}
       #- name: Publish GitHub Release
       #  run: gh release create "v${{ env.version }}" --title "v${{ env.version }}" --notes-file ${{steps.changelog.outputs.changelog }}
