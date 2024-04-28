@@ -10,6 +10,7 @@ runs:
         distribution: 'temurin'
         cache: maven
     - name: Build
+      shell: bash
       run:
         #- mvn --batch-mode --update-snapshots verify
         - echo "Verify ..."
