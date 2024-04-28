@@ -26,7 +26,7 @@ runs:
       shell: bash
       run: |
         base="$(mvn help:evaluate -Dexpression=project.parent.version -q -DforceStdout)"
-        version="$base-snapshot-$(date "+%Y%m%d-%H%M%S")" >> "$GITHUB_ENV"
+        version="$base-snapshot-$(date "+%Y%m%d-%H%M%S")"
         echo "version=$version" >> "$GITHUB_ENV"
     - name: XXX
       shell: bash
@@ -40,7 +40,6 @@ runs:
         version="${version:-v$base-0}"
         version="${version%%-*}-$(expr ${version#*} + 1)"
         echo "version=$version" >> "$GITHUB_ENV"
-        echo FF "${{ env.version }}"
     - name: Build
       shell: bash
       run: mvn --batch-mode --update-snapshots verify -Drevision="${{ env.version }}"
