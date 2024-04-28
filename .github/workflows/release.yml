@@ -32,8 +32,6 @@ jobs:
         run: mvn --batch-mode deploy -Drevision="${{ env.version }}" -DskipTests
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-      - name: Publish JavaDocs
-        run: "echo TODO: Publish JavaDocs"
       - name: Generate Changelog
         id: changelog
         uses: orhun/git-cliff-action@v3
