@@ -11,5 +11,5 @@ runs:
         cache: maven
     - name: Build
       shell: bash
-      run: echo "Verify ..." && java --version && ls -l && cat .m2/settings.xml
+      run: echo "Verify ..." && java --version && ls -lRa
         #- mvn --batch-mode --update-snapshots verify
