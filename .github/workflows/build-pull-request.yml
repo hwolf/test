@@ -12,11 +12,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Build
-        uses: ./.github/actions/build
-      - name: Upload Build Reports
-        #uses: actions/upload-artifact@v4
-        if: failure()
-        #with:
-        #  name: build-reports
-        #  path: '**/build/reports/'
-        run: echo "Upload Build Reports"
+        uses: ./.github/actions/build-and-publish
+        with:
+          release: none
+          token: ""

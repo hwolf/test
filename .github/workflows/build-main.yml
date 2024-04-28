@@ -9,13 +9,14 @@ concurrency:
 permissions:
   packages: write
 jobs:
-  build-and-deploy-snapshot:
-    name: Build and Deploy Snapshot
+  build-and-publish-snapshot:
+    name: Build and Publish Snapshot
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Build and Deploy Snapshot
-        uses: ./.github/actions/build
+        uses: ./.github/actions/build-and-publish
         with:
-          publish: "${{ secrets.GITHUB_TOKEN }}"
+          release: snapshot
+          token: "${{ secrets.GITHUB_TOKEN }}"
