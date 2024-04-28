@@ -5,6 +5,7 @@ concurrency:
   group: "${{ github.workflow }}-${{ github.ref }}"
 permissions:
   packages: write
+  actions: write
 jobs:
   build-and-publish-snapshot:
     name: Build and Publish Release
