@@ -2,7 +2,7 @@ name: Cleanup
 on:
   workflow_dispatch:
   schedule:
-    cron: weekly
+    - cron: weekly
 concurrency:
   group: "${{ github.workflow }}-${{ github.ref }}"
 jobs:
