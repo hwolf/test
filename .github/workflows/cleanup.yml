@@ -17,8 +17,10 @@ jobs:
   cleanup-packages:
     runs-on: ubuntu-latest
     steps:
-      - uses: Nats-ji/delete-old-releases@v1
-        with:
-          keep-count: 2
-          keep-old-minor-releases: false
-          token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Delete old packages
+      uses: actions/delete-package-versions@v5
+      with:
+        package-name: 'test'
+        package-type: 'maven'
+        min-versions-to-keep: 2
+        delete-only-pre-release-versions: true
