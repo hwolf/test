@@ -20,8 +20,7 @@ jobs:
     - name: Delete old packages
       uses: actions/delete-package-versions@v5
       with:
-        package-name: 'test'
+        package-name: 'test.test'
         package-type: 'maven'
         min-versions-to-keep: 2
         delete-only-pre-release-versions: true
-        token: "${{ github.token }}"
