@@ -1,0 +1,24 @@
+name: Cleanup
+on:
+  workflow_dispatch:
+  schedule:
+    - weekly
+concurrency:
+  group: "${{ github.workflow }}-${{ github.ref }}"
+jobs:
+  cleanup-workflows:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete workflow runs
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          retain_days: 10
+          keep_minimum_runs: 6
+  cleanup-packages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Nats-ji/delete-old-releases@v1
+        with:
+          keep-count: 2
+          keep-old-minor-releases: false
+          token: ${{ secrets.GITHUB_TOKEN }}
