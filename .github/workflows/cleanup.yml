@@ -23,5 +23,5 @@ jobs:
         package-name: 'test.test'
         package-type: 'maven'
         min-versions-to-keep: 2
-        delete-only-pre-release-versions: true
-        ignore-versions: '^[0-9\\.]+-[0-9]+$'
+        ignore-versions: '^[0-9\.]+\-[0-9]+$'
+
