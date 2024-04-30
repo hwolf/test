@@ -14,6 +14,11 @@ jobs:
         with:
           retain_days: 10
           keep_minimum_runs: 6
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test
+        run: echo XXXXX
   cleanup-packages:
     runs-on: ubuntu-latest
     steps:
