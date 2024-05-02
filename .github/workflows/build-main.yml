@@ -4,6 +4,7 @@ on:
     branches:
       - main
       - "spring-boot-*"
+run-name: Build Pull Request ${{ github.ref_name }}
 concurrency:
   group: "${{ github.workflow }}-${{ github.ref }}"
 permissions:
