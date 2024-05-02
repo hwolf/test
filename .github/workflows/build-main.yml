@@ -21,6 +21,7 @@ jobs:
         with:
           version: "${{ env.version }}"
           publish-image: true
+          token: ${{ secrets.GITHUB_TOKEN }}
       #- uses: ./.github/actions/deploy
       #  with:
       #    env: staging
