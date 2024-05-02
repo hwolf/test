@@ -5,12 +5,13 @@ on:
       - main
       - "spring-boot-*"
 concurrency:
-  group: "${{ github.workflow }}-${{ github.ref }}"
+  group: staging
 
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    environment: staging
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-java
@@ -26,6 +27,6 @@ jobs:
           version: "${{ env.version }}"
       - name: Create prerelease release
         run: |
-          gh release create -p v-"${{ env.version }}"
+          gh release create -p --latest v-"${{ env.version }}"
         env:
           GH_TOKEN: ${{ github.token }}
