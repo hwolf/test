@@ -9,7 +9,7 @@ concurrency:
 
 jobs:
   build:
-    name: Build and Publish Snapshot
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -24,9 +24,10 @@ jobs:
           version: "${{ env.version }}"
       - name: Create draft release
         run: |
-          gh release draft -d v-"${{ env.version }}"
+          gh release create -d v-"${{ env.version }}"
 
   deploy:
+    name: Deploy
     runs-on: ubuntu-latest
     needs:
       - build
