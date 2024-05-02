@@ -44,7 +44,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <imageName>ghcr.io/test/test-app:${project.version}</imageName>
+                    <imageName>ghcr.io/hwolf/test-app:${project.version}</imageName>
                 </configuration>
             </plugin>
         </plugins>

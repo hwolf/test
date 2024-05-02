@@ -30,7 +30,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name : Publish image to Container registry
         run: |
-          docker push "ghcr.io/test/test-app:${{ env.version }}"
+          docker push "ghcr.io/hwolf/test-app:${{ env.version }}"
 
       #- uses: ./.github/actions/deploy
       #  with:
