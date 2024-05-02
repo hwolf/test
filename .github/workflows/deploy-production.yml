@@ -2,7 +2,9 @@ name: Deploy Production
 on:
   release:
     types:
+      - created
       - released
+      - published
 concurrency:
   group: production
 
