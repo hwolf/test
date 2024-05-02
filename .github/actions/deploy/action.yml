@@ -7,7 +7,7 @@ inputs:
     description: The target environment
   version:
     required: true
-    description: 'Version to build'
+    description: Version to build
 
 runs:
   using: composite

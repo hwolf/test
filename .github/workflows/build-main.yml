@@ -16,18 +16,16 @@ jobs:
       - uses: ./.github/actions/setup-java
       - name: Set version
         run: |
-          base="$(mvn help:evaluate -Dexpression=project.parent.version -q -DforceStdout)"
-          version="$base-snapshot-$(date "+%Y%m%d-%H%M%S")"
-          echo "version=$version" >> "$GITHUB_ENV"
+          echo "version=$(date "+%Y%m%d-%H%M%S")" >> "$GITHUB_ENV"
       - uses: ./.github/actions/build-project
         with:
           version: "${{ env.version }}"
       - uses: ./.github/actions/deploy
         with:
           env: staging
-          version: "${{env.version }}"
-      - name: Create draft release
+          version: "${{ env.version }}"
+      - name: Create prerelease release
         run: |
-          gh release create -d v-"${{ env.version }}"
+          gh release create -p v-"${{ env.version }}"
         env:
           GH_TOKEN: ${{ github.token }}
