@@ -66,6 +66,6 @@ jobs:
       - uses: actions/checkout@v4
       - name: Create prerelease
         run: |
-          gh release create -p --latest v-"${{ env.version }}"
+          gh release create --latest v-"${{ env.version }}"
         env:
           GH_TOKEN: ${{ github.token }}
