@@ -18,8 +18,8 @@ runs:
           verify spring-boot:build-image \
           -Drevision="${{ inputs.version }}" \
           -Dpublish.image=${{ inputs.publish-image }} \
-          -Ddocker.username= ${{ github.actor }} \ 
-          -Ddocker.password= ${{ github.token }}
+          -Ddocker.username=${{ github.actor }} \ 
+          -Ddocker.password=${{ github.token }}
     - name: SonarQube
       shell: bash
       run: "echo TODO: SonarQube"
