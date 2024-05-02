@@ -6,8 +6,7 @@ on:
       - "spring-boot-*"
 concurrency:
   group: "${{ github.workflow }}-${{ github.ref }}"
-permissions:
-  packages: write
+
 jobs:
   build:
     name: Build and Publish Snapshot
