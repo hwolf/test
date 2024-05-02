@@ -17,6 +17,8 @@
         <revision>local</revision>
         <java.version>17</java.version>
         <publish.image>false</publish.image>
+        <docker.username/>
+        <docker.password/>
     </properties>
 
     <dependencies>
@@ -47,6 +49,10 @@
                 <configuration>
                     <imageName>ghcr.io/test/test-app:${project.version}</imageName>
                     <publish>${publish.image}</publish>
+                    <docker>
+                        <username>${docker.username}</username>
+                        <password>${docker.password}</password>
+                    </docker>
                 </configuration>
             </plugin>
         </plugins>
