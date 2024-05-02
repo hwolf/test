@@ -14,12 +14,12 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     outputs:
-      version: ${{ steps.set-version.outputs.version }}
+      version: ${{ steps.setversion.outputs.version }}
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-java
       - name: Set version
-        id: set-version
+        id: setversion
         run: |
           echo "version=$(date "+%Y%m%d-%H%M%S")" >> "$GITHUB_ENV"
       - uses: ./.github/actions/build-project
