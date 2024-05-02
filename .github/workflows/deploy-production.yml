@@ -1,0 +1,14 @@
+name: Build and Deploy Snapshot
+on:
+  release:
+    types:
+      - released
+concurrency:
+  group: production
+
+jobs:
+  deploy:
+    - uses: ./.github/workflows/deploy
+      with:
+        env: production
+        version: "${{env.version }}"

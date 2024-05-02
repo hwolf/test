@@ -4,9 +4,6 @@ inputs:
   version:
     required: true
     description: 'Version to build'
-  token:
-    required: true
-    description: 'GitHub token'
 runs:
   using: composite
   steps:

@@ -19,4 +19,3 @@ jobs:
         uses: ./.github/actions/build-project
         with:
           version: "${{env.version }}"
-          token: "${{ secrets.GITHUB_TOKEN }}"
