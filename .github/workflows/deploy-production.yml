@@ -13,8 +13,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
-          echo Branch $(git branch)
+          echo Branch $(git branch) ${{ github.ref_name }}
       - uses: ./.github/actions/deploy
         with:
           env: production
-          version: "${{env.version }}"
+          version: "${{ github.ref_name }}"
