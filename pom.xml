@@ -50,8 +50,10 @@
                     <imageName>ghcr.io/test/test-app:${project.version}</imageName>
                     <publish>${publish.image}</publish>
                     <docker>
-                        <username>${docker.username}</username>
-                        <password>${docker.password}</password>
+                        <publishRegistry>
+                            <username>${docker.username}</username>
+                            <password>${docker.password}</password>
+                        </publishRegistry>
                     </docker>
                 </configuration>
             </plugin>
