@@ -3,13 +3,21 @@ description: 'Build Project'
 inputs:
   version:
     required: true
-    description: 'Version to build'
+    description: Version to build
+  publish-image:
+    default: "false"
+    description: Publish image
+
 runs:
   using: composite
   steps:
     - name: Build
       shell: bash
-      run: mvn --batch-mode --update-snapshots verify spring-boot:build-image -Drevision="${{ inputs.version }}"
+      run: >
+        mvn --batch-mode --update-snapshots 
+          verify spring-boot:build-image 
+          -Drevision="${{ inputs.version }}"
+          -Dpublish.image=${{ inputs.publish-image }}
     - name: SonarQube
       shell: bash
       run: "echo TODO: SonarQube"

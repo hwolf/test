@@ -16,7 +16,7 @@
     <properties>
         <revision>local</revision>
         <java.version>17</java.version>
-        <docker.publish>false</docker.publish>
+        <publish.image>false</publish.image>
     </properties>
 
     <dependencies>
@@ -46,7 +46,7 @@
                 </executions>
                 <configuration>
                     <imageName>ghcr.io/test/test-app:${project.version}</imageName>
-                    <publish>${docker.publish}</publish>
+                    <publish>${publish.image}</publish>
                 </configuration>
             </plugin>
         </plugins>
