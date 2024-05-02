@@ -25,6 +25,8 @@ jobs:
       - name: Create draft release
         run: |
           gh release create -d v-"${{ env.version }}"
+        env:
+          GH_TOKEN: ${{ github.token }}
 
   deploy:
     name: Deploy
