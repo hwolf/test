@@ -48,21 +48,22 @@ jobs:
     environment: staging
     steps:
       - uses: actions/checkout@v4
-      - run: echo XXX "${{ env.version }}" "${{ needs.build.outputs.version }}"
       - uses: ./.github/actions/deploy
         with:
           env: staging
           version: "${{ env.version }}"
 
-#  create-prerelease:
-#    name: Create Prerelease
-#    runs-on: ubuntu-latest
-#    needs:
-#      - build
-#      - deploy-staging
-#    steps:
-#      - name: Create prerelease
-#        run: |
-#          gh release create -p --latest v-"${{ env.version }}"
-#        env:
-#          GH_TOKEN: ${{ github.token }}
+  create-prerelease:
+    name: Create Prerelease
+    runs-on: ubuntu-latest
+    needs:
+      - build
+      - deploy-staging
+    env:
+      version: ${{ needs.build.outputs.version }}
+    steps:
+      - name: Create prerelease
+        run: |
+          gh release create -p --latest v-"${{ env.version }}"
+        env:
+          GH_TOKEN: ${{ github.token }}
