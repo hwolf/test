@@ -19,16 +19,19 @@ jobs:
       - name: Set version
         run: |
           echo "version=$(date "+%Y%m%d-%H%M%S")" >> "$GITHUB_ENV"
-      - name: Log in to the Container registry
+      - uses: ./.github/actions/build-project
+        with:
+          version: "${{ env.version }}"
+      - name: Login to Container registry
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - uses: ./.github/actions/build-project
-        with:
-          version: "${{ env.version }}"
-          publish-image: true
+      - name : Publish image to Container registry
+        run: |
+          docker push "ghcr.io/test/test-app:${{ env.version }}"
+
       #- uses: ./.github/actions/deploy
       #  with:
       #    env: staging

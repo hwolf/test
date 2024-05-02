@@ -4,9 +4,6 @@ inputs:
   version:
     required: true
     description: Version to build
-  publish-image:
-    default: "false"
-    description: Publish image
 
 runs:
   using: composite
@@ -14,7 +11,7 @@ runs:
     - name: Build
       shell: bash
       run: |
-        mvn -e --batch-mode --update-snapshots verify spring-boot:build-image -Drevision="${{ inputs.version }}" -Dpublish.image="${{ inputs.publish-image }}"
+        mvn -e --batch-mode --update-snapshots verify spring-boot:build-image -Drevision="${{ inputs.version }}"
     - name: SonarQube
       shell: bash
       run: "echo TODO: SonarQube"
