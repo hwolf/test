@@ -22,6 +22,7 @@ jobs:
         id: setversion
         run: |
           echo "version=$(date "+%Y%m%d-%H%M%S")" >> "$GITHUB_ENV"
+          echo "version="${{ env.version }}" >> "$GITHUB_OUTPUT"
       - uses: ./.github/actions/build-project
         with:
           version: "${{ env.version }}"
