@@ -16,7 +16,7 @@ runs:
     - name: Build
       shell: bash
       run: |
-        mvn -X --batch-mode --update-snapshots verify spring-boot:build-image -Drevision="${{ inputs.version }}" -Dpublish.image=${{ inputs.publish-image }} -Ddocker.username="${{ github.actor }}" -Ddocker.password="${{ inputs.token }}"
+        mvn -e --batch-mode --update-snapshots verify spring-boot:build-image -Drevision="${{ inputs.version }}" -Dpublish.image=${{ inputs.publish-image }} -Ddocker.username="${{ github.actor }}" -Ddocker.password="${{ inputs.token }}"
     - name: SonarQube
       shell: bash
       run: "echo TODO: SonarQube"
