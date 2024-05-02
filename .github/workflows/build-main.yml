@@ -14,15 +14,13 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     outputs:
-      version: ${{ steps.setversion.outputs.version }}
+      version: ${{ steps.output.outputs.version }}
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-java
       - name: Set version
-        id: setversion
         run: |
           echo "version=$(date "+%Y%m%d-%H%M%S")" >> "$GITHUB_ENV"
-          echo "version="${{ env.version }}" >> "$GITHUB_OUTPUT"
       - uses: ./.github/actions/build-project
         with:
           version: "${{ env.version }}"
@@ -35,6 +33,10 @@ jobs:
       - name : Publish image to Container registry
         run: |
           docker push "ghcr.io/hwolf/test-app:${{ env.version }}"
+      - name: Output
+        id: output
+        run: |
+          echo "version=${{ env.version }}" >> "$GITHUB_OUTPUT"          
 
   deploy-staging:
     name: Deploy to Staging
