@@ -7,8 +7,6 @@ inputs:
   publish-image:
     default: "false"
     description: Publish image
-  token:
-    description: GitHub token
 
 runs:
   using: composite
@@ -16,7 +14,7 @@ runs:
     - name: Build
       shell: bash
       run: |
-        mvn -e --batch-mode --update-snapshots verify spring-boot:build-image -Drevision="${{ inputs.version }}" -Dpublish.image=${{ inputs.publish-image }} -Ddocker.username="${{ github.actor }}" -Ddocker.password="${{ inputs.token }}"
+        mvn -e --batch-mode --update-snapshots verify spring-boot:build-image -Drevision="${{ inputs.version }}" -Dpublish.image=${{ inputs.publish-image }}"
     - name: SonarQube
       shell: bash
       run: "echo TODO: SonarQube"
