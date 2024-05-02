@@ -45,7 +45,7 @@ jobs:
     environment: staging
     steps:
       - uses: actions/checkout@v4
-      - run: echo XXX "${{ env.version }}"
+      - run: echo XXX "${{ env.version }}" "${{ needs.build.outputs.version }}"
       - uses: ./.github/actions/deploy
         with:
           env: staging
