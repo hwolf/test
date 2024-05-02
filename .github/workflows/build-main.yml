@@ -35,20 +35,16 @@ jobs:
         run: |
           docker push "ghcr.io/hwolf/test-app:${{ env.version }}"
 
-      #- uses: ./.github/actions/deploy
-      #  with:
-      #    env: staging
-      #    version: "${{ env.version }}"
-
   deploy-staging:
     name: Deploy to Staging
     runs-on: ubuntu-latest
     needs:
       - build
     env:
-      version: ${{ needs.build.env.version }}
+      version: ${{ needs.build.outputs.version }}
     environment: staging
     steps:
+      - uses: actions/checkout@v4
       - run: echo XXX "${{ env.version }}"
       - uses: ./.github/actions/deploy
         with:
