@@ -22,19 +22,12 @@ jobs:
       - uses: ./.github/actions/build-project
         with:
           version: "${{ env.version }}"
+      - uses: ./.github/actions/deploy
+        with:
+          env: staging
+          version: "${{env.version }}"
       - name: Create draft release
         run: |
           gh release create -d v-"${{ env.version }}"
         env:
           GH_TOKEN: ${{ github.token }}
-
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-latest
-    needs:
-      - build
-    steps:
-      - uses: ./.github/actions/deploy
-        with:
-          env: staging
-          version: "${{env.version }}"
