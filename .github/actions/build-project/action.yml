@@ -13,10 +13,10 @@ runs:
   steps:
     - name: Build
       shell: bash
-      run: >
-        mvn --batch-mode --update-snapshots 
-          verify spring-boot:build-image 
-          -Drevision="${{ inputs.version }}"
+      run: |
+        mvn --batch-mode --update-snapshots \
+          verify spring-boot:build-image \
+          -Drevision="${{ inputs.version }}" \
           -Dpublish.image=${{ inputs.publish-image }}
     - name: SonarQube
       shell: bash

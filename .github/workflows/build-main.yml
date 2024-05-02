@@ -26,19 +26,6 @@ jobs:
       #    env: staging
       #    version: "${{ env.version }}"
 
-  publish-image:
-    name: Publish Image
-    runs-on: ubuntu-latest
-    needs:
-      - build
-    steps:
-      - name: Log in to the Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-        #  username: ${{ github.actor }}
-        #  password: ${{ secrets.GITHUB_TOKEN }}
-
 #  deploy-staging:
 #    name: Deploy to Staging
 #    runs-on: ubuntu-latest
