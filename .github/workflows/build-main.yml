@@ -54,7 +54,7 @@ jobs:
           version: "${{ env.version }}"
 
   create-prerelease:
-    name: Create Release
+    name: Create Prerelease
     runs-on: ubuntu-latest
     permissions: write-all
     needs:
