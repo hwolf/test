@@ -7,8 +7,6 @@ on:
 concurrency:
   group: "${{ github.workflow }}-${{ github.ref }}"
   cancel-in-progress: true
-permissions:
-  packages: write
 
 jobs:
   build:
@@ -16,6 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.output.outputs.version }}
+    permissions: write-all
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-java
@@ -47,6 +46,7 @@ jobs:
     env:
       version: ${{ needs.build.outputs.version }}
     environment: staging
+    permissions: write-all
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/deploy
@@ -67,6 +67,7 @@ jobs:
     env:
       version: ${{ needs.build.outputs.version }}
     environment: production
+    permissions: write-all
     steps:
       - uses: actions/checkout@v4
         with:
