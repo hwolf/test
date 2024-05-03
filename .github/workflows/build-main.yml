@@ -53,8 +53,8 @@ jobs:
           env: staging
           version: "${{ env.version }}"
 
-  create-prerelease:
-    name: Create Prerelease
+  create-release:
+    name: Create Release
     runs-on: ubuntu-latest
     permissions: write-all
     needs:
@@ -64,7 +64,7 @@ jobs:
       version: ${{ needs.build.outputs.version }}
     steps:
       - uses: actions/checkout@v4
-      - name: Create prerelease
+      - name: Create Release
         run: |
           gh release create -p --latest v-"${{ env.version }}"
         env:
