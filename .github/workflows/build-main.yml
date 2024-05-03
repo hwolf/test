@@ -79,6 +79,10 @@ jobs:
     environment: production
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: "v-${{ env.version }}"
+      - run: |
+          git branch
       - uses: ./.github/actions/deploy
         with:
           env: production
