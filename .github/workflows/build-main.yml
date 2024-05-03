@@ -53,8 +53,8 @@ jobs:
           env: staging
           version: "${{ env.version }}"
 
-  create-prerelease:
-    name: Create Prerelease
+  create-release:
+    name: Create Release
     runs-on: ubuntu-latest
     permissions: write-all
     needs:
