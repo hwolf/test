@@ -64,7 +64,7 @@ jobs:
       version: ${{ needs.build.outputs.version }}
     steps:
       - uses: actions/checkout@v4
-      - uses: rickstaa/action-create-tag@v1
-        id: "tag_create"
+      - name: Release
+        uses: softprops/action-gh-release@v2
         with:
-          tag: "v-${{ env.version }}"
+          tag_name: "v-${{ env.version }}"
