@@ -25,6 +25,6 @@ jobs:
         with:
           tag: "${{ github.ref_name }}"
           name: "Test ${{ github.ref_name }}"
-          body: "Released version ${{ github.ref_name }} to production on ${{ env.now }}"
+          body: "Released version ${{ github.ref_name }} to production on ${{ env.now } UTC}"
           allowUpdates: "true"
           removeArtifacts: "true"
