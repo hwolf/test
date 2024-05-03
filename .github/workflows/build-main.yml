@@ -64,7 +64,7 @@ jobs:
       version: ${{ needs.build.outputs.version }}
     steps:
       - uses: actions/checkout@v4
-      - name: Create prerelease
+      - name: Create release
         run: |
           gh release create --latest v-"${{ env.version }}"
         env:
