@@ -1,8 +1,8 @@
 name: Deploy Production
 on:
-  release:
-    types:
-      - released
+  push:
+    tags:
+      - "v-*"
 concurrency:
   group: production
 
