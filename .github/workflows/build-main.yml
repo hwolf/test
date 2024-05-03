@@ -65,7 +65,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Create prerelease
-        run: |
-          gh release create -p --latest v-"${{ env.version }}"
-        env:
-          GH_TOKEN: ${{ github.token }}
+        uses: ncipollo/release-action@v1
+        with:
+          tag: "v-${{ env.version }}"
+          prerelease: "true"
