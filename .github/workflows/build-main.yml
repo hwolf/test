@@ -76,14 +76,14 @@ jobs:
       - deploy-staging
     env:
       version: ${{ needs.build.outputs.version }}
-    environment: production
+    #environment: production
     steps:
       - uses: actions/checkout@v4
         with:
           ref: "v-${{ env.version }}"
       - run: |
           git branch
-      - uses: ./.github/actions/deploy
-        with:
-          env: production
-          version: "${{ env.version }}"
+      #- uses: ./.github/actions/deploy
+      #  with:
+      #    env: production
+      #    version: "${{ env.version }}"
