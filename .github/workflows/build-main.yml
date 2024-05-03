@@ -64,7 +64,22 @@ jobs:
       version: ${{ needs.build.outputs.version }}
     steps:
       - uses: actions/checkout@v4
-      - name: Release
-        uses: softprops/action-gh-release@v2
+      - uses: rickstaa/action-create-tag@v1
         with:
-          tag_name: "v-${{ env.version }}"
+          tag: "v-${{ env.version }}"
+
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs:
+      - create-tag
+      - deploy-staging
+    env:
+      version: ${{ needs.build.outputs.version }}
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/deploy
+        with:
+          env: production
+          version: "${{ env.version }}"
