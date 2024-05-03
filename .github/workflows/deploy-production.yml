@@ -18,3 +18,13 @@ jobs:
         with:
           env: production
           version: "${{ github.ref_name }}"
+      - run: |
+          echo "now=$(date '+%-d.%-m.%Y %-H:%M:%S')" >> $GITHUB_ENV
+      - name: Update release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: "v-${{ env.version }}"
+          name: "Test ${{ env.version }}"
+          body: "Released version ${{ env.version }} to production on ${{ env.now }}"
+          allowUpdates: "true"
+          removeArtifacts: "true"
