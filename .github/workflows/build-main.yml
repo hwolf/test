@@ -53,8 +53,8 @@ jobs:
           env: staging
           version: "${{ env.version }}"
 
-  create-prerelease:
-    name: Create Prerelease
+  create-tag:
+    name: Create Tag
     runs-on: ubuntu-latest
     permissions: write-all
     needs:
@@ -63,10 +63,10 @@ jobs:
     env:
       version: ${{ needs.build.outputs.version }}
     steps:
-      - uses: actions/checkout@v4
-      - name: Create prerelease
-        uses: ncipollo/release-action@v1
+      - name: package-version-to-git-tag
+        uses: pkgdeps/git-tag-action@v2
         with:
-          tag: "v-${{ env.version }}"
-          name: "Test ${{ env.version }}"
-          prerelease: "true"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_repo: ${{ github.repository }}
+          version: ${{ env.version }}
+          git_tag_prefix: "v"
