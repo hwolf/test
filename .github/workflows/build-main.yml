@@ -64,10 +64,7 @@ jobs:
       version: ${{ needs.build.outputs.version }}
     steps:
       - name: package-version-to-git-tag
-        uses: pkgdeps/git-tag-action@v2
+        uses: rickstaa/action-create-tag@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          github_repo: ${{ github.repository }}
-          version: ${{ env.version }}
-          git_tag_prefix: "v"
-          git_commit_sha: ${{ github.sha }}
+          tag: "v${{ env.version }}"
+          tag_exists_error: true
