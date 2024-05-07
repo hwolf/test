@@ -64,7 +64,7 @@ jobs:
       version: ${{ needs.build.outputs.version }}
     steps:
       - name: package-version-to-git-tag
-        uses: pkgdeps/git-tag-action@v2
+        uses: pkgdeps/git-tag-action@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           github_repo: ${{ github.repository }}
