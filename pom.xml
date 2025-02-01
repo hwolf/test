@@ -15,6 +15,7 @@
     <properties>
         <revision>local</revision>
         <java.version>17</java.version>
+        <docker.imageName>test</docker.imageName>
     </properties>
 
     <dependencies>
@@ -35,13 +36,11 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>build-image</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <configuration>
+                    <image>
+                        <name>${docker.imageName}</name>
+                    </image>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
