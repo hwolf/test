@@ -2,21 +2,14 @@ name: Build Pull Request
 on:
   pull_request:
 
+env:
+  REVISION: "pr-${{ github.event.inputs.pr_number }}"
+
 jobs:
   build:
     name: Build Pull Request
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Java
-        uses: ./.github/actions/setup-java
-      - name: Set version
-        run: |
-          base="$(mvn help:evaluate -Dexpression=project.parent.version -q -DforceStdout)"
-          version="$base-snapshot-$(date "+%Y%m%d-%H%M%S")"
-          echo "version=$version" >> "$GITHUB_ENV"
-      - name: Build
-        uses: ./.github/actions/build-project
+      - uses: ./.github/workflows/build-and-test.yml@main
         with:
-          version: "${{env.version }}"
+          revision: $REVISION

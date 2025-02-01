@@ -1,0 +1,83 @@
+name: 'Build and Test'
+on:
+  workflow_call:
+    inputs:
+      revision:
+        type: string
+        required: true
+      service-folder:
+        type: string
+        default: '.'
+      image-name:
+        type: string
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Dump'
+        run: |
+          echo "Environment: ${{ github.env }}"
+          echo "Base Ref: ${{ github.base_ref }}"
+          echo "Revision: ${{ inputs.revision }}
+
+      - name: 'Setup Maven'
+        uses: s4u/setup-maven-action@v1.18.0
+        with:
+          java-version: 21
+          java-distribution: 'liberica'
+          #settings-repositories: '...'
+
+      - name: 'Build & Test'
+        run: |
+          mvn -e -B -no-transfer-progress clean jacoco:prepare-agent package jacoco:report -Drevision="${{ inputs.revision }}"
+        #env:
+        # ...
+
+      #- name: 'Analyse with SonarCloud'
+      #  if: github.actor != 'dependabot[bot]'
+      #  run: |
+      #    mvn -e -B -no-transfer-progress sonar:sonar -Drevision="${{ inputs.revision }}"
+      #    env:
+      #     ...
+
+      #- name: 'Check Quality Gate'
+      #  if: github.actor != 'dependabot[bot]'
+      #  uses: sonarsource/sonarqube-quality-gate-action@v1.1.0
+      #  with:
+      #    scanMetadataReportFile: 'target/sonar/report-task.txt'
+      #  env:
+      #    ...
+
+      - name: 'Build Image'
+        run: |
+          cd ${{ inputs.service-folder }}
+          mvn -e -B -no-transfer-progress spring-boot:build-image-no-fork -Drevision="${{ inputs.revision }}"
+
+      - name: 'Login ...'
+        if: inputs.image-name != ''
+        run: |
+          echo "Login ..."
+
+      - name: 'Publish Image'
+        if: inputs.image-name != ''
+        run: |
+          echo "docker ..."
+
+      - name: 'Publish Test Results'
+        if: always()
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        with:
+          files: '**/target/surefire-reports/**/*.xml'
+
+      - name: 'Publish Coverage Report'
+        uses: madrapps/jacoco-report@v1.6.1
+        with:
+          paths: '**/target/site/jacoco/jacoco.xml'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          min-coverage-overall: 0
+          min-coverage-changed-files: 0
+
+      - name: 'Update Dependency Graph'
+        uses: advanced-security/maven-dependency-submission-action@v4
