@@ -8,16 +8,22 @@ on:
       service-folder:
         type: string
         default: '.'
-      image-name:
-        type: string
+      publish:
+        type: boolean
+        default: false
       environment:
         type: string
         default: DEV
+    outputs:
+      image:
+        value: ${{ jobs.build.outputs.image-name }}
 
 jobs:
-  build-and-test:
+  build:
     name: 'Build and Test'
     runs-on: ubuntu-latest
+    outputs:
+      image-name: ${{ steps.build-image.outputs.image-name }}
     steps:
       - name: 'Setup Maven'
         uses: s4u/setup-maven-action@v1.18.0
@@ -48,19 +54,24 @@ jobs:
       #    ...
 
       - name: 'Build Image'
+        id: 'build-image'
         run: |
           cd ${{ inputs.service-folder }}
           mvn -e -B -no-transfer-progress spring-boot:build-image-no-fork -Drevision="${{ inputs.revision }}"
+          
+          groupId = $(mvn help:evaluate -Dexpression=project.groupId -q -DforceStdout)
+          artifactId = $(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
+          echo "image-name=xxxx.azurecr.io/${groupId/.//}/$artifactId" >> $GITHUB_OUTPUT
 
       - name: 'Login ...'
-        if: inputs.image-name != ''
+        if: inputs.publish
         run: |
           echo "Login ..."
 
       - name: 'Publish Image'
-        if: inputs.image-name != ''
+        if: inputs.publish
         run: |
-          echo "docker ..."
+          echo "Publish image "
 
       - name: 'Publish Test Results'
         if: always()

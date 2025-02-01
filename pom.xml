@@ -8,10 +8,9 @@
         <version>3.4.2</version>
         <relativePath/>
     </parent>
-    <groupId>test</groupId>
-    <artifactId>test</artifactId>
+    <groupId>xxx.test</groupId>
+    <artifactId>xx-abc-test</artifactId>
     <version>${revision}</version>
-    <name>test</name>
 
     <properties>
         <revision>local</revision>
