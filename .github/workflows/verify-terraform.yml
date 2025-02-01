@@ -1,18 +1,6 @@
 name: 'Verify Terraform'
 on:
   workflow_call:
-    inputs:
-      revision:
-        type: string
-        required: true
-      service-folder:
-        type: string
-        default: '.'
-      image-name:
-        type: string
-      environment:
-        type: string
-        default: DEV
 
 jobs:
   verify-terraform:
