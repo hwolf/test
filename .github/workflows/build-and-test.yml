@@ -56,12 +56,14 @@ jobs:
       - name: 'Build Image'
         id: 'build-image'
         run: |
+          groupId="$(mvn help:evaluate -Dexpression=project.groupId -q -DforceStdout)"
+          artifactId="$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)"
+          imageName="xxxx.azurecr.io/${groupId/.//}/$artifactId"
+          echo "image-name=$imageName" >> $GITHUB_OUTPUT
+
           cd ${{ inputs.service-folder }}
-          mvn -e -B -no-transfer-progress spring-boot:build-image-no-fork -Drevision="${{ inputs.revision }}"
-          
-          groupId = $(mvn help:evaluate -Dexpression=project.groupId -q -DforceStdout)
-          artifactId = $(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
-          echo "image-name=xxxx.azurecr.io/${groupId/.//}/$artifactId" >> $GITHUB_OUTPUT
+          mvn -e -B -no-transfer-progress spring-boot:build-image-no-fork -Drevision="${{ inputs.revision }}" \
+              -Ddocker.imageName="$imageName"
 
       - name: 'Login ...'
         if: inputs.publish
