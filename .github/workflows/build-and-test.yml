@@ -19,18 +19,18 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - name: 'Dump'
-        run: |
-          echo "Environment: ${{ inputs.environment }}"
-          echo "Base Ref: ${{ github.base_ref }}"
-          echo "Revision: ${{ inputs.revision }}"
-
       - name: 'Setup Maven'
         uses: s4u/setup-maven-action@v1.18.0
         with:
           java-version: 21
           java-distribution: 'liberica'
           #settings-repositories: '...'
+
+      - name: 'Dump'
+        run: |
+          echo "Environment: ${{ inputs.environment }}"
+          echo "Base Ref: ${{ github.base_ref }}"
+          echo "Revision: ${{ inputs.revision }}"
 
       - name: 'Build & Test'
         run: |

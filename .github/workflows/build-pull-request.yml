@@ -12,4 +12,4 @@ jobs:
     name: 'Build Pull Request'
     uses: hwolf/test/.github/workflows/build-and-test.yml@test-1
     with:
-      revision: "pr-${{ github.event.inputs.pr_number }}"
+      revision: "pr-${{ github.event.pull_request.number }}"
