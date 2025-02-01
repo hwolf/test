@@ -20,7 +20,7 @@ jobs:
         run: |
           echo "Environment: ${{ github.env }}"
           echo "Base Ref: ${{ github.base_ref }}"
-          echo "Revision: ${{ inputs.revision }}
+          echo "Revision: ${{ inputs.revision }}"
 
       - name: 'Setup Maven'
         uses: s4u/setup-maven-action@v1.18.0
