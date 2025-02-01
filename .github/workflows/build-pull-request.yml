@@ -13,8 +13,6 @@ env:
 jobs:
   build:
     name: 'Build Pull Request'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: hwolf/test/.github/workflows/build-and-test.yml@test-1
-        with:
-          revision: $REVISION
+    uses: hwolf/test/.github/workflows/build-and-test.yml@test-1
+    with:
+      revision: $REVISION
