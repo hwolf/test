@@ -10,6 +10,9 @@ on:
         default: '.'
       image-name:
         type: string
+      environment:
+        type: string
+        default: DEV
 
 jobs:
   build:
@@ -18,7 +21,7 @@ jobs:
     steps:
       - name: 'Dump'
         run: |
-          echo "Environment: ${{ github.env }}"
+          echo "Environment: ${{ inputs.environment }}"
           echo "Base Ref: ${{ github.base_ref }}"
           echo "Revision: ${{ inputs.revision }}"
 

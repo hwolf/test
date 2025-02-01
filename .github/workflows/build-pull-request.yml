@@ -7,12 +7,9 @@ on:
       - opened
       - synchronize
 
-env:
-  REVISION: "pr-${{ github.event.inputs.pr_number }}"
-
 jobs:
   build:
     name: 'Build Pull Request'
     uses: hwolf/test/.github/workflows/build-and-test.yml@test-1
     with:
-      revision: $REVISION
+      revision: "pr-${{ github.event.inputs.pr_number }}"
