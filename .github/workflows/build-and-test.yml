@@ -15,8 +15,8 @@ on:
         default: DEV
 
 jobs:
-  build:
-    name: Build
+  build-and-test:
+    name: 'Build and Test'
     runs-on: ubuntu-latest
     steps:
       - name: 'Setup Maven'
@@ -25,13 +25,6 @@ jobs:
           java-version: 21
           java-distribution: 'liberica'
           #settings-repositories: '...'
-
-      - name: 'Dump'
-        run: |
-          echo "Environment: ${{ inputs.environment }}"
-          echo "Ref name: ${{ github.ref_name }}"
-          echo "Head Ref: ${{ github.head_ref }}"
-          echo "Revision: ${{ inputs.revision }}"
 
       - name: 'Build & Test'
         run: |
