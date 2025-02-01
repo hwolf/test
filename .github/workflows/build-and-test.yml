@@ -29,7 +29,7 @@ jobs:
       - name: 'Dump'
         run: |
           echo "Environment: ${{ inputs.environment }}"
-          echo "Base Ref: ${{ github.base_ref }}"
+          echo "Ref name: ${{ github.ref_name }}"
           echo "Revision: ${{ inputs.revision }}"
 
       - name: 'Build & Test'
