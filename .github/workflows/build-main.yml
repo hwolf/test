@@ -1,73 +1,34 @@
 name: Build Branch
 on:
-#  push:
-#    branches:
-#      - main
-#  workflow_dispatch:
-concurrency:
-  group: staging
-permissions:
-  packages: write
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        options:
+          - none
+          - dev
+          - test
+          - qa
+        default: qa
+        description: Deploy to environment?
 
 jobs:
   build:
-    name: Build
-    runs-on: ubuntu-latest
-    outputs:
-      version: ${{ steps.output.outputs.version }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup-java
-      - name: Set version
-        run: |
-          echo "version=$(date "+%Y%m%d-%H%M%S")" >> "$GITHUB_ENV"
-      - uses: ./.github/actions/build-project
-        with:
-          version: "${{ env.version }}"
-      - name: Login to Container registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - name : Publish image to Container registry
-        run: |
-          docker push "ghcr.io/hwolf/test-app:${{ env.version }}"
-      - name: Output
-        id: output
-        run: |
-          echo "version=${{ env.version }}" >> "$GITHUB_OUTPUT"          
+    name: 'Build'
+    if: github.head_ref == 'main'
+    uses: hwolf/test/.github/workflows/build-and-test.yml@test-1
+    with:
+      revision: $REVISION
 
-  deploy-staging:
-    name: Deploy to Staging
-    runs-on: ubuntu-latest
+  deploy:
+    name: 'Deploy'
+    if: github.head_ref == 'main' && inputs.environment != 'none'
     needs:
       - build
-    env:
-      version: ${{ needs.build.outputs.version }}
-    environment: staging
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/deploy
-        with:
-          env: staging
-          version: "${{ env.version }}"
-
-  create-tag:
-    name: Create Tag
-    runs-on: ubuntu-latest
-    permissions: write-all
-    needs:
-      - build
-      - deploy-staging
-    env:
-      version: ${{ needs.build.outputs.version }}
-    steps:
-      - name: package-version-to-git-tag
-        uses: pkgdeps/git-tag-action@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          github_repo: ${{ github.repository }}
-          version: ${{ env.version }}
-          git_tag_prefix: "v"
-          git_commit_sha: ${{ github.sha }}
+    uses: hwolf/test/.github/workflows/deploy.yml@test-1
+    with:
+      image-name: "${{ needs.build.outputs.image-name }}"
+      environment: "${{ inputs.environment || 'qa' }}"
