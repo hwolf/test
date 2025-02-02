@@ -32,7 +32,7 @@ jobs:
       - setup
     uses: hwolf/workflows/.github/workflows/build-and-test.yml@main
     with:
-      ref: "${{ needs.setup.outputs.sha }}"
+      ref: "${{ needs.setup.outputs.ref }}"
       revision: "pr-${{ github.event.issue.number }}-${{ github.run_number }}"
       publish-image: true
 
@@ -45,8 +45,8 @@ jobs:
     uses: hwolf/workflows/.github/workflows/deploy.yml@main
     with:
       image-name: "${{ needs.build.outputs.image-name }}"
-      environment: "${{ contains(github.event.comment.body, '/deploy dev') && 'DEV' || 'TEST' }}"
-      ref: "${{ needs.setup.outputs.sha }}"
+      environment: "${{ contains(github.event.comment.body, '/deploy:dev') && 'dev' || 'test' }}"
+      ref: "${{ needs.setup.outputs.ref }}"
 
   finished:
     name: 'XXXX'
