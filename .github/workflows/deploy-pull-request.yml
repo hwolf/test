@@ -47,6 +47,7 @@ jobs:
       image-name: "${{ needs.build.outputs.image-name }}"
       environment: "${{ contains(github.event.comment.body, '/deploy:dev') && 'dev' || 'test' }}"
       ref: "${{ needs.setup.outputs.sha }}"
+      pr-number: ${{ github.event.issue.number }}
 
   finish:
     name: 'Finish'
