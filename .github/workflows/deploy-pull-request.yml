@@ -32,7 +32,7 @@ jobs:
       - setup
     uses: hwolf/workflows/.github/workflows/build-and-test.yml@main
     with:
-      ref: "${{ needs.setup.outputs.ref }}"
+      ref: "${{ needs.setup.outputs.sha }}"
       revision: "pr-${{ github.event.issue.number }}-${{ github.run_number }}"
       publish-image: true
 
