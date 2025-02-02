@@ -6,7 +6,7 @@ on:
      - created
 
 env:
-  shouldRun: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '@deploy') }} && github.event.issue.state == 'open'
+  shouldRun: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '@deploy') && github.event.issue.state == 'open' }}
 
 jobs:
   setup:
