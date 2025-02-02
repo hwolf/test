@@ -13,8 +13,19 @@ jobs:
     uses: hwolf/workflows/.github/workflows/build-and-test.yml@main
     with:
       revision: "pr-${{ github.event.pull_request.number }}"
-      publish-image: false
+      publish-image: true
 
   terraform:
     name: 'Validate Terraform Scripts'
     uses: hwolf/workflows/.github/workflows/verify-terraform.yml@main
+
+  deploy:
+    name: 'Deploy Pull Request'
+    if: github.event.issue.pull_request && contains(github.event.comment.body, '/deploy') && github.event.issue.state == 'open'
+    needs:
+      - build
+      - terraform
+    uses: hwolf/workflows/.github/workflows/deploy.yml@main
+    with:
+      image-name: "${{ needs.build.outputs.image-name }}"
+      environment: "dev"
