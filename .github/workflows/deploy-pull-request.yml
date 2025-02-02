@@ -5,17 +5,16 @@ on:
     types:
      - created
 
-env:
-  shouldRun: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '@deploy') && github.event.issue.state == 'open' }}
-
 jobs:
   setup:
     name: Setup
-    if: vars.shouldRun == true
+    if: github.event.issue.pull_request && contains(github.event.comment.body, '@deploy') && github.event.issue.state == 'open'
     runs-on: ubuntu-latest
     outputs:
       ref: ${{ steps.getRef.outputs.head_ref }}
     steps:
+      - run: |
+          echo "${{ contains(github.event.comment.body, '@deploy dev') && 'DEV' || 'TEST' }}"
       - uses: xt0rted/pull-request-comment-branch@v3
         id: getref
       - run: |
@@ -40,5 +39,5 @@ jobs:
     uses: hwolf/test/.github/workflows/deploy.yml@test-1
     with:
       image-name: "${{ needs.build.outputs.image-name }}"
-      environment: "DEV"
+      environment: 'TEST'
       ref: ${{ needs.setup.outputs.ref }}
