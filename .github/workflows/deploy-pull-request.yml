@@ -11,12 +11,16 @@ jobs:
     if: github.event.issue.pull_request && contains(github.event.comment.body, '/deploy') && github.event.issue.state == 'open'
     runs-on: ubuntu-latest
     outputs:
-      ref: ${{ steps.getRef.outputs.head_ref }}
+      ref: ${{ steps.getref.outputs.head_ref }}
     steps:
       - uses: xt0rted/pull-request-comment-branch@v3
         id: getref
       - run: |
           echo "head_ref=${{ steps.getref.outputs.head_ref }}" >> $GITHUB_OUTPUT
+      - uses: myrotvorets/set-commit-status-action@v2.0.1
+        with:
+          sha: ${{ steps.getref.outputs.head_sha }}
+          status: 'pending'
 
   build:
     name: 'Build Pull Request'
