@@ -26,7 +26,8 @@ jobs:
       - branch
     steps:
       - run: |
-          echo "XXX=${{ needs.branch.outputs.ref }}"
+          echo "XX1=${{ needs.branch.outputs.ref }}"
+          echo "XX2=${{ steps.branch.outputs.ref }}"
 
 #  build:
 #    name: 'Build Pull Request'
