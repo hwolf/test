@@ -46,7 +46,7 @@ jobs:
     with:
       image-name: "${{ needs.build.outputs.image-name }}"
       environment: "${{ contains(github.event.comment.body, '/deploy dev') && 'DEV' || 'TEST' }}"
-      ref: "${{ needs.setup.outputs.ref }}"
+      ref: "${{ needs.setup.outputs.sha }}"
 
   finished:
     name: 'XXXX'
