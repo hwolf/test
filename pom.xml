@@ -5,17 +5,17 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.2</version>
+        <version>3.4.2</version>
         <relativePath/>
     </parent>
-    <groupId>test</groupId>
-    <artifactId>test</artifactId>
+    <groupId>xxx.test</groupId>
+    <artifactId>xx-abc-test</artifactId>
     <version>${revision}</version>
-    <name>test</name>
 
     <properties>
         <revision>local</revision>
         <java.version>17</java.version>
+        <docker.imageName>test</docker.imageName>
     </properties>
 
     <dependencies>
@@ -36,16 +36,16 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>build-image</goal>
-                        </goals>
-                    </execution>
-                </executions>
                 <configuration>
-                    <imageName>ghcr.io/hwolf/test-app:${project.version}</imageName>
+                    <image>
+                        <name>${docker.imageName}</name>
+                    </image>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.12</version>
             </plugin>
         </plugins>
     </build>

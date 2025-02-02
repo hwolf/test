@@ -1,20 +1,14 @@
-name: 'Build and Test'
+name: 'Verify Terraform'
 on:
   workflow_call:
     inputs:
-      environment:
-        type: string
-        default: DEV
-      image-name:
-        type: string
-        required: true
       ref:
         type: string
         default: ''
 
 jobs:
-  deploy:
-    name: 'Deploy'
+  verify-terraform:
+    name: 'Verify Terraform'
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout'
@@ -28,7 +22,6 @@ jobs:
           terraform_version: 1.8.2
           terraform_wrapper: false
 
-      - name: 'Deploy ${{ inputs.image-name }} to ${{ inputs.environment }}'
+      - name: 'Validate Terraform'
         run: |
-          echo "TODO..."
-          
+          echo "TODO"
