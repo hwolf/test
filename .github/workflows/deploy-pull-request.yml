@@ -27,7 +27,7 @@ jobs:
     steps:
       - run: |
           echo "XX1=${{ needs.branch.outputs.ref }}"
-          echo "XX2=${{ toJson(steps) }}"
+          echo "XX2=${{ toJson(needs) }}"
 
 #  build:
 #    name: 'Build Pull Request'
