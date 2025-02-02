@@ -8,7 +8,7 @@ on:
 jobs:
   setup:
     name: Setup
-    if: github.event.issue.pull_request && contains(github.event.comment.body, '@deploy') && github.event.issue.state == 'open'
+    if: github.event.issue.pull_request && contains(github.event.comment.body, '/deploy') && github.event.issue.state == 'open'
     runs-on: ubuntu-latest
     outputs:
       ref: ${{ steps.getRef.outputs.head_ref }}
@@ -20,7 +20,7 @@ jobs:
 
   build:
     name: 'Build Pull Request'
-    if: github.event.issue.pull_request && contains(github.event.comment.body, '@deploy') && github.event.issue.state == 'open'
+    if: github.event.issue.pull_request && contains(github.event.comment.body, '/deploy') && github.event.issue.state == 'open'
     needs:
       - setup
     uses: hwolf/test/.github/workflows/build-and-test.yml@test-1
@@ -30,12 +30,12 @@ jobs:
 
   deploy:
     name: 'Deploy Pull Request'
-    if: github.event.issue.pull_request && contains(github.event.comment.body, '@deploy') && github.event.issue.state == 'open'
+    if: github.event.issue.pull_request && contains(github.event.comment.body, '/deploy') && github.event.issue.state == 'open'
     needs:
       - build
       - setup
     uses: hwolf/test/.github/workflows/deploy.yml@test-1
     with:
       image-name: "${{ needs.build.outputs.image-name }}"
-      environment: "${{ contains(github.event.comment.body, '@deploy dev') && 'DEV' || 'TEST' }}"
+      environment: "${{ contains(github.event.comment.body, '/deploy dev') && 'DEV' || 'TEST' }}"
       ref: "${{ needs.setup.outputs.ref }}"
