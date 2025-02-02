@@ -16,9 +16,9 @@ jobs:
         #with:
         #  ref:
 
-      - name: Dump
-        run: |
-          echo ${{ toJson(github) }}
+      #- name: Dump
+      #  run: |
+      #    echo ${{ toJson(github) }}
 
       - name: Branch
         run: |
