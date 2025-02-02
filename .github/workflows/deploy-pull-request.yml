@@ -11,12 +11,19 @@ jobs:
     if: github.event.issue.pull_request && contains(github.event.comment.body, '/deploy') && github.event.issue.state == 'open'
     runs-on: ubuntu-latest
     outputs:
-      ref: ${{ steps.getRef.outputs.head_ref }}
+      ref: ${{ steps.getref.outputs.head_ref }}
+      sha: ${{ steps.getref.outputs.head_sha }}
     steps:
       - uses: xt0rted/pull-request-comment-branch@v3
         id: getref
       - run: |
           echo "head_ref=${{ steps.getref.outputs.head_ref }}" >> $GITHUB_OUTPUT
+          echo "head_sha=${{ steps.getref.outputs.head_sha }}" >> $GITHUB_OUTPUT
+      - uses: myrotvorets/set-commit-status-action@master
+        with:
+          sha: ${{ steps.getref.outputs.head_sha }}
+          status: 'pending'
+          token: '${{ secrets.GITHUB_TOKEN }}'
 
   build:
     name: 'Build Pull Request'
@@ -40,3 +47,16 @@ jobs:
       image-name: "${{ needs.build.outputs.image-name }}"
       environment: "${{ contains(github.event.comment.body, '/deploy dev') && 'DEV' || 'TEST' }}"
       ref: "${{ needs.setup.outputs.ref }}"
+
+  finished:
+    name: 'XXXX'
+    runs-on: ubuntu-latest
+    if: always()
+    needs:
+      - deploy
+    steps:
+      - uses: myrotvorets/set-commit-status-action@master
+        with:
+          sha: "${{ needs.setup.outputs.shatest }}"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status: ${{ job.status }}
