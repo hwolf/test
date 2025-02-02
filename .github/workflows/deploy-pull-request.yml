@@ -18,12 +18,12 @@ jobs:
         id: getref
       - run: |
           echo "head_ref=${{ steps.getref.outputs.head_ref }}" >> $GITHUB_OUTPUT
-      - uses: rsotnychenko/deployment-status-update@0.2.1
+          echo "head_sha=${{ steps.getref.outputs.head_sha }}" >> $GITHUB_OUTPUT
+      - uses: myrotvorets/set-commit-status-action@master
         with:
-          run_id: ${{ github.run_id }}
-          status: in_progress
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          sha: ${{ steps.getref.outputs.head_sha }}
+          status: 'pending'
+          token: '${{ secrets.GITHUB_TOKEN }}'
 
   build:
     name: 'Build Pull Request'
@@ -56,9 +56,8 @@ jobs:
       - setup
       - deploy
     steps:
-      - uses: rsotnychenko/deployment-status-update@0.2.1
+      - uses: myrotvorets/set-commit-status-action@master
         with:
+          sha: "${{ needs.setup.outputs.sha }}"
+          token: ${{ secrets.GITHUB_TOKEN }}
           status: ${{ job.status }}
-          run_id: ${{ github.run_id }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
