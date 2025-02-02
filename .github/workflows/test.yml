@@ -1,0 +1,13 @@
+name: 'Deploy Pull Request'
+
+on:
+  pull_request_review_comment:
+    types:
+     - created
+
+jobs:
+  setup:
+    name: Setup
+    runs-on: ubuntu-latest
+       - run: |
+          echo "Github=${{ toJson(github) }}"
