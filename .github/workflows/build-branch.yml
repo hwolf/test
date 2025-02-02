@@ -22,6 +22,4 @@ jobs:
     with:
       revision: "$(date +%Y%m%d)-${{ github.sha }}-${{ github.run_number }}"
       environment: "${{ inputs.environment || 'none' }}"
-    secrets:
-      SEC_1: ${{ secrets.SEC_1 }}
-      SEC_2: ${{ secrets.SEC_1 }}
+    secrets: inherit
