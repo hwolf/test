@@ -15,7 +15,7 @@ jobs:
       - run: |
           echo "ref=${{ steps.branch.outputs.head_ref }}" >> $GITHUB_ENV
     outputs:
-      ref: ${{ branch.outputs.ref }}
+      ref: ${{ steps.branch.outputs.ref }}
 
   test:
     name: 'Build Pull Request'
