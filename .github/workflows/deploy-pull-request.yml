@@ -38,7 +38,6 @@ jobs:
 
   deploy:
     name: 'Deploy Pull Request'
-    if: github.event.issue.pull_request && contains(github.event.comment.body, '/deploy') && github.event.issue.state == 'open'
     needs:
       - build
       - setup
