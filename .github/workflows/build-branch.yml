@@ -15,6 +15,11 @@ on:
         description: Deploy to environment?
 
 jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "${{ toJson(github) }}"
   build:
     name: "Build"
     if: github.ref != 'refs/heads/main'
