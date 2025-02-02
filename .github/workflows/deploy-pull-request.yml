@@ -19,6 +19,12 @@ jobs:
           echo "head_ref=${{ steps.getref.outputs.head_ref }}"
           echo "steps=${{ toJson(steps) }}"
 
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo ${{ toJson(github) }}
+
   build:
     name: 'Build Pull Request'
     if: github.event.issue.pull_request && contains(github.event.comment.body, '@deploy')
@@ -27,6 +33,7 @@ jobs:
     uses: hwolf/test/.github/workflows/build-and-test.yml@test-1
     with:
       ref: ${{ needs.branch.outputs.ref }}
+      revision: pr-${{ github.event.pull_request.number }}
 
   deploy:
     name: 'Deploy Pull Request'
