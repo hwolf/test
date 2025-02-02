@@ -24,6 +24,8 @@ jobs:
           sha: ${{ steps.getref.outputs.head_sha }}
           status: 'pending'
           token: '${{ secrets.GITHUB_TOKEN }}'
+      - run: |
+          echo "${{ steps.getref }}"
 
   build:
     name: 'Build Pull Request'
