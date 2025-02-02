@@ -53,10 +53,11 @@ jobs:
     runs-on: ubuntu-latest
     if: always()
     needs:
+      - setup
       - deploy
     steps:
       - uses: myrotvorets/set-commit-status-action@master
         with:
-          sha: "${{ needs.setup.outputs.shatest }}"
+          sha: "${{ needs.setup.outputs.sha }}"
           token: ${{ secrets.GITHUB_TOKEN }}
           status: ${{ job.status }}
