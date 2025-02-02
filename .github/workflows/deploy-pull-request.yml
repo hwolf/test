@@ -17,11 +17,8 @@ jobs:
 
   deploy:
     name: 'Deploy Pull Request'
-    runs-on: ubuntu-latest
     needs: build
-    #uses: hwolf/test/.github/workflows/deploy.yml@test-1
-    #with:
-    #  image: "${{ needs.build.outputs.image-name }}"
-    steps:
-      - run: |
-          echo "Image: ${{ needs.build.outputs.image-name }}"
+    uses: hwolf/test/.github/workflows/deploy.yml@test-1
+    with:
+      image-name: "${{ needs.build.outputs.image-name }}"
+      environment: DEV

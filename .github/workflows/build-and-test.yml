@@ -55,14 +55,13 @@ jobs:
 
       - name: 'Build Image'
         id: 'build-image'
+        working-directory: ${{ inputs.service-folder }}
         run: |
           groupId="$(mvn help:evaluate -Dexpression=project.groupId -q -DforceStdout)"
           artifactId="$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)"
           imageName="xxxx.azurecr.io/${groupId/.//}/$artifactId:${{ inputs.revision }}"
-          echo "image-name=$imageName"
           echo "image-name=$imageName" >> $GITHUB_OUTPUT
 
-          cd ${{ inputs.service-folder }}
           mvn -e -B -no-transfer-progress spring-boot:build-image-no-fork -Drevision="${{ inputs.revision }}" \
               -Ddocker.imageName="$imageName"
 
