@@ -8,17 +8,25 @@ on:
 jobs:
   build:
     name: 'Build Pull Request'
-    #if: github.event.issue.pull_request && contains(github.event.comment.body, '@deploy')
+    if: github.event.issue.pull_request && contains(github.event.comment.body, '@deploy')
     runs-on: ubuntu-latest
     steps:
-      #- name: 'Checkout'
-      #  uses: actions/checkout@v4
-      #  with:
-      #    ref:
-      - name: Dump
-        run: |
-          echo ${{ toJson(github) }}
+      - name: Get Pull Request branch
+        id: branch
+        uses: xt0rted/pull-request-comment-branch@v3
 
+      - name: 'Checkout'
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.branch.outputs.head_ref }}
+
+      #- name: Dump
+      #  run: |
+      #    echo ${{ toJson(github) }}
+
+      - name: Branch
+        run: |
+          git branch
 
 #    uses: hwolf/test/.github/workflows/build-and-test.yml@test-1
 #    with:
