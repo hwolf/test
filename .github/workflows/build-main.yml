@@ -23,3 +23,4 @@ jobs:
     with:
       revision: "$(date +%Y%m%d)-${{ github.run_number }}"
       environment: "${{ inputs.environment || 'qa' }}"
+    secrets: inherit
