@@ -1,0 +1,34 @@
+name: Build
+on:
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+        required: true
+        description: Deploy to environment?
+      revision:
+        type: string
+        required: true
+        description: Revision
+
+jobs:
+  build:
+    name: 'Build'
+    uses: hwolf/workflows/.github/workflows/build-and-test.yml@main
+    with:
+      revision: "${{ inputs.revision }}"
+      publish-image: ${{ inputs.environment != 'none' }}
+
+  terraform:
+    name: 'Validate Terraform'
+    uses: hwolf/workflows/.github/workflows/verify-terraform.yml@main
+
+  deploy:
+    name: 'Deploy'
+    if: inputs.environment != 'none'
+    needs:
+      - build
+    uses: hwolf/workflows/.github/workflows/deploy.yml@main
+    with:
+      image-name: "${{ needs.build.outputs.image-name }}"
+      environment: "${{ inputs.environment }}"
