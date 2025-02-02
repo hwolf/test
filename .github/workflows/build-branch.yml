@@ -21,5 +21,4 @@ jobs:
     uses: hwolf/test/.github/workflows/build.yml@main
     with:
       revision: "$(date +%Y%m%d)-${{ github.head.sha }}-${{ github.run_number }}"
-      publish-image: ${{ inputs.environment != 'none' }}
       environment: "${{ inputs.environment || 'none' }}"
