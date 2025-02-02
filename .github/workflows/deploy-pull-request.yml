@@ -12,16 +12,18 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       ref: ${{ steps.getref.outputs.head_ref }}
+      sha: ${{ steps.getref.outputs.head_sha }}
     steps:
       - uses: xt0rted/pull-request-comment-branch@v3
         id: getref
       - run: |
           echo "head_ref=${{ steps.getref.outputs.head_ref }}" >> $GITHUB_OUTPUT
+          echo "head_sha=${{ steps.getref.outputs.head_sha }}" >> $GITHUB_OUTPUT
       - uses: myrotvorets/set-commit-status-action@master
         with:
           sha: ${{ steps.getref.outputs.head_sha }}
           status: 'pending'
-          token: '${{ github.token }}'
+          token: '${{ secrets.GITHUB_TOKEN }}'
 
   build:
     name: 'Build Pull Request'
@@ -30,7 +32,7 @@ jobs:
       - setup
     uses: hwolf/workflows/.github/workflows/build-and-test.yml@main
     with:
-      ref: "${{ needs.setup.outputs.ref }}"
+      ref: "${{ needs.setup.outputs.sha }}"
       revision: "pr-${{ github.event.issue.number }}-${{ github.run_number }}"
       publish-image: true
 
@@ -45,3 +47,17 @@ jobs:
       image-name: "${{ needs.build.outputs.image-name }}"
       environment: "${{ contains(github.event.comment.body, '/deploy dev') && 'DEV' || 'TEST' }}"
       ref: "${{ needs.setup.outputs.ref }}"
+
+  finished:
+    name: 'XXXX'
+    runs-on: ubuntu-latest
+    if: always()
+    needs:
+      - setup
+      - deploy
+    steps:
+      - uses: myrotvorets/set-commit-status-action@master
+        with:
+          sha: "${{ needs.setup.outputs.sha }}"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status: ${{ job.status }}
