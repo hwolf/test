@@ -26,10 +26,10 @@ jobs:
     needs:
       - branch
     env:
-      REF: ${{ needs.branch.outputs.xref }}
+      REF: ${{ needs.branch.outputs.ref }}
     steps:
       - run: |
-          echo "XX1= ${{ needs.branch.outputs.xref }}"
+          echo "XX1= ${{ needs.branch.outputs.ref }}"
           echo "XX2=${{ toJson(needs) }}"
 
 #  build:
