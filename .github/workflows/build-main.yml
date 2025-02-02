@@ -18,14 +18,14 @@ on:
 jobs:
   build:
     name: 'Build'
-    if: github.head_ref == 'main'
+    if: github.ref == 'refs/heads/main'
     uses: hwolf/test/.github/workflows/build-and-test.yml@test-1
     with:
       revision: $REVISION
 
   deploy:
     name: 'Deploy'
-    if: github.head_ref == 'main' && inputs.environment != 'none'
+    if: github.ref == 'refs/heads/main' && inputs.environment != 'none'
     needs:
       - build
     uses: hwolf/test/.github/workflows/deploy.yml@test-1
