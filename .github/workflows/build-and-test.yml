@@ -8,7 +8,7 @@ on:
       service-folder:
         type: string
         default: '.'
-      publish:
+      publish-image:
         type: boolean
         default: false
       environment:
@@ -70,17 +70,17 @@ jobs:
               -Ddocker.imageName="$imageName"
 
       - name: 'Login ...'
-        if: inputs.publish
+        if: inputs.publish-image
         run: |
           echo "Login ..."
 
       - name: 'Publish Image'
-        if: inputs.publish
+        if: inputs.publish-image
         run: |
           echo "Publish image "
 
       - name: 'Publish Test Results'
-        if: always()
+        if: failure()
         uses: EnricoMi/publish-unit-test-result-action@v2
         with:
           files: '**/target/surefire-reports/**/*.xml'
