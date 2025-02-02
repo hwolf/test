@@ -17,10 +17,11 @@ jobs:
         id: getref
       - run: |
           echo "head_ref=${{ steps.getref.outputs.head_ref }}" >> $GITHUB_OUTPUT
-      - uses: myrotvorets/set-commit-status-action@v2.0.1
+      - uses: myrotvorets/set-commit-status-action@master
         with:
           sha: ${{ steps.getref.outputs.head_sha }}
           status: 'pending'
+          token: '${{ github.token }}'
 
   build:
     name: 'Build Pull Request'
