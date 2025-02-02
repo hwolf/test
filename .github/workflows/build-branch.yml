@@ -1,7 +1,7 @@
-name: "Build Main"
+name: "Build Branch"
 on:
   push:
-    branches:
+    branches-ignore:
       - main
   workflow_dispatch:
     inputs:
@@ -11,15 +11,14 @@ on:
           - none
           - dev
           - test
-          - qa
-        default: qa
+        default: test
         description: Deploy to environment?
 
 jobs:
   build:
     name: "Build"
-    if: github.ref == 'refs/heads/main'
+    if: github.ref != 'refs/heads/main'
     uses: hwolf/test/.github/workflows/build.yml@main
     with:
-      revision: "$(date +%Y%m%d)-${{ github.run_number }}"
-      environment: "${{ inputs.environment || 'qa' }}"
+      revision: "$(date +%Y%m%d)-${{ github.head.sha }}-${{ github.run_number }}"
+      environment: "${{ inputs.environment || 'none' }}"
