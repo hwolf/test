@@ -19,17 +19,17 @@ jobs:
   build:
     name: 'Build'
     if: github.ref == 'refs/heads/main'
-    uses: hwolf/workflows/build-and-test.yml@main
+    uses: hwolf/workflows/.github/workflows/build-and-test.yml@main
     with:
       revision: "$(date +%Y%m%d)-${{ github.run_number }}"
-      publish-image: ${{ inputs.environment != 'none' }}
+      publish-image: ${{ inputs./ != 'none' }}
 
   deploy:
     name: 'Deploy'
     if: github.ref == 'refs/heads/main' && inputs.environment != 'none'
     needs:
       - build
-    uses: hwolf/workflows/deploy.yml@main
+    uses: hwolf/workflows/.github/workflows/deploy.yml@main
     with:
       image-name: "${{ needs.build.outputs.image-name }}"
       environment: "${{ inputs.environment || 'qa' }}"
