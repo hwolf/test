@@ -5,7 +5,7 @@ on:
       - opened
       - reopened
       - synchronize
-    branches-ignore:
+    branches:
       - main
   workflow_dispatch:
     inputs:
