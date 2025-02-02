@@ -85,13 +85,5 @@ jobs:
         with:
           files: '**/target/surefire-reports/**/*.xml'
 
-      - name: 'Publish Coverage Report'
-        uses: madrapps/jacoco-report@v1.6.1
-        with:
-          paths: '**/target/site/jacoco/jacoco.xml'
-          token: ${{ secrets.GITHUB_TOKEN }}
-          min-coverage-overall: 0
-          min-coverage-changed-files: 0
-
       #- name: 'Update Dependency Graph'
       #  uses: advanced-security/maven-dependency-submission-action@v4
