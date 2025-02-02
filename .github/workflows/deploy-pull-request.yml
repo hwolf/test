@@ -27,7 +27,7 @@ jobs:
     uses: hwolf/test/.github/workflows/build-and-test.yml@test-1
     with:
       ref: ${{ needs.branch.outputs.ref }}
-      revision: pr-${{ github.event.issue.number }}-${{ run_number }}
+      revision: pr-${{ github.event.issue.number }}-${{ github.run_number }}
 
   deploy:
     name: 'Deploy Pull Request'
