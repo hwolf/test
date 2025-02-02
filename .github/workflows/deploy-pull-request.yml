@@ -9,16 +9,15 @@ jobs:
   branch:
     name: Get Pull Request branch
     runs-on: ubuntu-latest
+    outputs:
+      ref: ${{ steps.getRef.outputs.head_ref }}
     steps:
       - uses: xt0rted/pull-request-comment-branch@v3
-        id: branch-name
+        id: getRef
       - run: |
-          echo "ref=${{ steps.branch-name.outputs.head_ref }}" >> $GITHUB_OUTPUT
-          echo "ref=${{ steps.branch-name.outputs.head_ref }}" >> $GITHUB_ENV
-          echo "ref=${{ steps.branch-name.outputs.head_ref }}"
+          echo "head_ref=${{ steps.getRef.outputs.head_ref }}" >> $GITHUB_OUTPUT
+          echo "head_ref=${{ steps.getRef.outputs.head_ref }}"
           echo "steps=${{ toJson(steps) }}"
-    outputs:
-      ref: ${{ steps.branch-name.outputs.ref }}
 
   test:
     name: 'Build Pull Request'
@@ -27,10 +26,10 @@ jobs:
     needs:
       - branch
     env:
-      REF: ${{ needs.branch.outputs.ref }}
+      REF: ${{ needs.branch.outputs.xref }}
     steps:
       - run: |
-          echo "XX1=$REF"
+          echo "XX1= ${{ needs.branch.outputs.xref }}"
           echo "XX2=${{ toJson(needs) }}"
 
 #  build:
