@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "XXX: $REVISION"
+          echo "XXX: $(date "+%Y%m%d)-${{ github.run_number }}"
   build:
     name: 'Build'
     if: github.ref == 'refs/heads/main'
