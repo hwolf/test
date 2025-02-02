@@ -10,7 +10,7 @@ on:
 jobs:
   build:
     name: 'Build Pull Request'
-    uses: hwolf/test/.github/workflows/build-and-test.yml@main
+    uses: hwolf/workflows/build-and-test.yml@main
     with:
       revision: "pr-${{ github.event.pull_request.number }}"
       publish-image: false
