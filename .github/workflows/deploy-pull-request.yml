@@ -6,18 +6,39 @@ on:
      - created
 
 jobs:
-  build:
-    name: 'Build Pull Request'
-    if: github.event.issue.pull_request && contains(github.event.comment.body, '@deploy')
-    uses: hwolf/test/.github/workflows/build-and-test.yml@test-1
-    with:
-      ref: ${{ steps.branch.outputs.head_ref }}
+  branch:
+    name: Get Pull Request branch
+    runs-on: ubuntu-latest
+    steps:
+      - uses: xt0rted/pull-request-comment-branch@v3
+        id: branch
 
-  deploy:
-    name: 'Deploy Pull Request'
-    needs: build
-    uses: hwolf/test/.github/workflows/deploy.yml@test-1
-    with:
-      image-name: "${{ needs.build.outputs.image-name }}"
-      environment: DEV
-      ref: ${{ steps.branch.outputs.head_ref }}
+  test:
+    name: 'Build Pull Request'
+    runs-on: ubuntu-latest
+    if: github.event.issue.pull_request && contains(github.event.comment.body, '@deploy')
+    needs:
+      - branch
+    steps:
+      - run: |
+          echo ${{ needs.branch.outputs.head_ref }}
+
+#  build:
+#    name: 'Build Pull Request'
+#    if: github.event.issue.pull_request && contains(github.event.comment.body, '@deploy')
+#    needs:
+#      - branch
+#    uses: hwolf/test/.github/workflows/build-and-test.yml@test-1
+#    with:
+#      ref: ${{ needs.branch.outputs.head_ref }}
+
+#  deploy:
+#    name: 'Deploy Pull Request'
+#    needs:
+#      - build
+#      - branch
+#    uses: hwolf/test/.github/workflows/deploy.yml@test-1
+#    with:
+#      image-name: "${{ needs.build.outputs.image-name }}"
+#      environment: DEV
+#      ref: ${{ needs.branch.outputs.head_ref }}
