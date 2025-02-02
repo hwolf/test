@@ -24,8 +24,6 @@ jobs:
           sha: ${{ steps.getref.outputs.head_sha }}
           status: 'pending'
           token: '${{ secrets.GITHUB_TOKEN }}'
-      - run: |
-          echo "${{ toJson(steps.getref) }}"
 
   build:
     name: 'Build Pull Request'
@@ -48,10 +46,10 @@ jobs:
     with:
       image-name: "${{ needs.build.outputs.image-name }}"
       environment: "${{ contains(github.event.comment.body, '/deploy:dev') && 'dev' || 'test' }}"
-      ref: "pull/${{ github.event.issue.number }}/head:${{ needs.setup.outputs.ref }}"
+      ref: "${{ needs.setup.outputs.sha }}"
 
-  finished:
-    name: 'XXXX'
+  finish:
+    name: 'Finish'
     runs-on: ubuntu-latest
     if: always()
     needs:
