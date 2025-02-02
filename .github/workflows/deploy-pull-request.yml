@@ -13,7 +13,7 @@ jobs:
       - uses: xt0rted/pull-request-comment-branch@v3
         id: branch-name
       - run: |
-          echo "ref=${{ steps.branch.outputs.head_ref }}" >> $GITHUB_OUTPUT
+          echo "ref=${{ steps.branch-name.outputs.head_ref }}" >> $GITHUB_OUTPUT
           echo "steps=${{ toJson(steps) }}"
     outputs:
       ref: ${{ steps.branch-name.outputs.ref }}
