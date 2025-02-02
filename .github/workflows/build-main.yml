@@ -15,7 +15,15 @@ on:
         default: qa
         description: Deploy to environment?
 
+env:
+  REVISION: "$(date "+%Y%m%d)-${{ github.run_number }}"
+
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "XXX: $REVISION"
   build:
     name: 'Build'
     if: github.ref == 'refs/heads/main'
