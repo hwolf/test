@@ -20,13 +20,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "XXX: $(date "+%Y%m%d)-${{ github.run_number }}"
+          echo "XXX: $(date +%Y%m%d)-${{ github.run_number }}"
   build:
     name: 'Build'
     if: github.ref == 'refs/heads/main'
     uses: hwolf/test/.github/workflows/build-and-test.yml@test-1
     with:
-      revision: "$(date "+%Y%m%d)-${{ github.run_number }}"
+      revision: "$(date +%Y%m%d)-${{ github.run_number }}"
 
   deploy:
     name: 'Deploy'
