@@ -16,11 +16,6 @@ on:
         description: Deploy to environment?
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - run: |
-          echo "XXX: $(date +%Y%m%d)-${{ github.run_number }}"
   build:
     name: 'Build'
     if: github.ref == 'refs/heads/main'
