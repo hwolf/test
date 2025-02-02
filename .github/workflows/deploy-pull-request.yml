@@ -11,12 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: xt0rted/pull-request-comment-branch@v3
-        id: branch
+        id: branch-name
       - run: |
           echo "ref=${{ steps.branch.outputs.head_ref }}" >> $GITHUB_OUTPUT
-          cat $GITHUB_OUTPUT
+          echo "steps=${{ toJson(steps) }}"
     outputs:
-      ref: ${{ steps.branch.outputs.ref }}
+      ref: ${{ steps.branch-name.outputs.ref }}
 
   test:
     name: 'Build Pull Request'
@@ -26,7 +26,7 @@ jobs:
       - branch
     steps:
       - run: |
-          echo "XX1=${{ toJson(needs) }}"
+          echo "XX1=${{ needs.branch.outputs.ref }}"
           echo "XX2=${{ toJson(steps) }}"
 
 #  build:
