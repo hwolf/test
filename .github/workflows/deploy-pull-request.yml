@@ -12,6 +12,8 @@ jobs:
     steps:
       - uses: xt0rted/pull-request-comment-branch@v3
         id: branch
+    outputs:
+      ref: ${{ branch.outputs.head_ref }}
 
   test:
     name: 'Build Pull Request'
@@ -21,7 +23,7 @@ jobs:
       - branch
     steps:
       - run: |
-          echo ${{ needs.branch.outputs.head_ref }}
+          echo ${{ jobs.branch.outputs.head_ref }}
 
 #  build:
 #    name: 'Build Pull Request'
@@ -30,7 +32,7 @@ jobs:
 #      - branch
 #    uses: hwolf/test/.github/workflows/build-and-test.yml@test-1
 #    with:
-#      ref: ${{ needs.branch.outputs.head_ref }}
+#      ref: ${{ jobs.branch.outputs.head_ref }}
 
 #  deploy:
 #    name: 'Deploy Pull Request'
@@ -41,4 +43,4 @@ jobs:
 #    with:
 #      image-name: "${{ needs.build.outputs.image-name }}"
 #      environment: DEV
-#      ref: ${{ needs.branch.outputs.head_ref }}
+#      ref: ${{ jobs.branch.outputs.head_ref }}
