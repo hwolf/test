@@ -18,7 +18,7 @@ jobs:
   build:
     name: "Build"
     if: github.ref != 'refs/heads/main'
-    uses: hwolf/test/.github/workflows/build.yml@main
+    uses: hwolf/workflows/.github/workflows/build.yml@main
     with:
       revision: "$(date +%Y%m%d)-${{ github.sha }}-${{ github.run_number }}"
       environment: "${{ inputs.environment || 'none' }}"
