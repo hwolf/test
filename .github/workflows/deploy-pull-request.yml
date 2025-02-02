@@ -11,7 +11,7 @@ env:
 jobs:
   setup:
     name: Setup
-    if: vars.shouldRun
+    if: vars.shouldRun == true
     runs-on: ubuntu-latest
     outputs:
       ref: ${{ steps.getRef.outputs.head_ref }}
