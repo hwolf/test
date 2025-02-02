@@ -20,5 +20,5 @@ jobs:
     if: github.ref != 'refs/heads/main'
     uses: hwolf/test/.github/workflows/build.yml@main
     with:
-      revision: "$(date +%Y%m%d)-${{ github.sha }}-${{ github.run_number }}"
+      revision: "$(date +%Y%m%d)-$(${{ github.sha }}:0:12)}-${{ github.run_number }}"
       environment: "${{ inputs.environment || 'none' }}"
