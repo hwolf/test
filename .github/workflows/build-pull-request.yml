@@ -13,6 +13,7 @@ jobs:
     uses: hwolf/test/.github/workflows/build-and-test.yml@test-1
     with:
       revision: "pr-${{ github.event.pull_request.number }}"
+      publish-image: false
 
   terraform:
     name: 'Validate Terraform Scripts'

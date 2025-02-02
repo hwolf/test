@@ -22,6 +22,7 @@ jobs:
     uses: hwolf/test/.github/workflows/build-and-test.yml@test-1
     with:
       revision: "$(date +%Y%m%d)-${{ github.run_number }}"
+      publish-image: ${{ inputs.environment != 'none' }}
 
   deploy:
     name: 'Deploy'
