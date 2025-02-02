@@ -9,34 +9,15 @@ jobs:
   build:
     name: 'Build Pull Request'
     if: github.event.issue.pull_request && contains(github.event.comment.body, '@deploy')
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get Pull Request branch
-        id: branch
-        uses: xt0rted/pull-request-comment-branch@v3
+    uses: hwolf/test/.github/workflows/build-and-test.yml@test-1
+    with:
+      ref: ${{ steps.branch.outputs.head_ref }}
 
-      - name: 'Checkout'
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ steps.branch.outputs.head_ref }}
-
-      #- name: Dump
-      #  run: |
-      #    echo ${{ toJson(github) }}
-
-      - name: Branch
-        run: |
-          git branch
-
-#    uses: hwolf/test/.github/workflows/build-and-test.yml@test-1
-#    with:
-#      publish: true
-#      revision: "pr-${{ github.event.pull_request.number }}"
-
-#  deploy:
-#    name: 'Deploy Pull Request'
-#    needs: build
-#    uses: hwolf/test/.github/workflows/deploy.yml@test-1
-#    with:
-#      image-name: "${{ needs.build.outputs.image-name }}"
-#      environment: DEV
+  deploy:
+    name: 'Deploy Pull Request'
+    needs: build
+    uses: hwolf/test/.github/workflows/deploy.yml@test-1
+    with:
+      image-name: "${{ needs.build.outputs.image-name }}"
+      environment: DEV
+      ref: ${{ steps.branch.outputs.head_ref }}
