@@ -13,8 +13,6 @@ jobs:
     outputs:
       ref: ${{ steps.getRef.outputs.head_ref }}
     steps:
-      - run: |
-          echo "${{ contains(github.event.comment.body, '@deploy dev') && 'DEV' || 'TEST' }}"
       - uses: xt0rted/pull-request-comment-branch@v3
         id: getref
       - run: |
@@ -27,8 +25,8 @@ jobs:
       - setup
     uses: hwolf/test/.github/workflows/build-and-test.yml@test-1
     with:
-      ref: ${{ needs.setup.outputs.ref }}
-      revision: pr-${{ github.event.issue.number }}-${{ github.run_number }}
+      ref: "${{ needs.setup.outputs.ref }}"
+      revision: "pr-${{ github.event.issue.number }}-${{ github.run_number }}"
 
   deploy:
     name: 'Deploy Pull Request'
@@ -39,5 +37,5 @@ jobs:
     uses: hwolf/test/.github/workflows/deploy.yml@test-1
     with:
       image-name: "${{ needs.build.outputs.image-name }}"
-      environment: 'TEST'
-      ref: ${{ needs.setup.outputs.ref }}
+      environment: "${{ contains(github.event.comment.body, '@deploy dev') && 'DEV' || 'TEST' }}"
+      ref: "${{ needs.setup.outputs.ref }}"
