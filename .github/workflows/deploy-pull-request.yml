@@ -11,7 +11,7 @@ env:
 jobs:
   setup:
     name: Setup
-    if: github.event.issue.pull_request && contains(github.event.comment.body, '@deploy') && github.event.issue.state == 'open'
+    if: vars.shouldRun
     runs-on: ubuntu-latest
     outputs:
       ref: ${{ steps.getRef.outputs.head_ref }}
