@@ -19,7 +19,7 @@ jobs:
   build:
     name: 'Build'
     if: github.ref == 'refs/heads/main'
-    uses: hwolf/test/.github/workflows/build-and-test.yml@test-1
+    uses: hwolf/test/.github/workflows/build-and-test.yml@main
     with:
       revision: "$(date +%Y%m%d)-${{ github.run_number }}"
       publish-image: ${{ inputs.environment != 'none' }}
@@ -29,7 +29,7 @@ jobs:
     if: github.ref == 'refs/heads/main' && inputs.environment != 'none'
     needs:
       - build
-    uses: hwolf/test/.github/workflows/deploy.yml@test-1
+    uses: hwolf/test/.github/workflows/deploy.yml@main
     with:
       image-name: "${{ needs.build.outputs.image-name }}"
       environment: "${{ inputs.environment || 'qa' }}"

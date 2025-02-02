@@ -10,11 +10,11 @@ on:
 jobs:
   build:
     name: 'Build Pull Request'
-    uses: hwolf/test/.github/workflows/build-and-test.yml@test-1
+    uses: hwolf/test/.github/workflows/build-and-test.yml@main
     with:
       revision: "pr-${{ github.event.pull_request.number }}"
       publish-image: false
 
   terraform:
     name: 'Validate Terraform Scripts'
-    uses: hwolf/test/.github/workflows/verify-terraform.yml@test-1
+    uses: hwolf/test/.github/workflows/verify-terraform.yml@main
