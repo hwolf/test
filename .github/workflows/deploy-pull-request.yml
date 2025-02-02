@@ -50,8 +50,8 @@ jobs:
 
   finish:
     name: 'Finish'
+    if: github.event.issue.pull_request && contains(github.event.comment.body, '/deploy') && github.event.issue.state == 'open'
     runs-on: ubuntu-latest
-    if: always()
     needs:
       - setup
       - deploy
