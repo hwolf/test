@@ -14,6 +14,9 @@ on:
       environment:
         type: string
         default: DEV
+      ref:
+        type: string
+        default: ''
     outputs:
       image-name:
         value: ${{ jobs.build.outputs.image-name }}
@@ -28,6 +31,7 @@ jobs:
       - name: 'Setup Maven'
         uses: s4u/setup-maven-action@v1.18.0
         with:
+          checkout-ref: ${{ inputs.ref }}
           java-version: 21
           java-distribution: 'liberica'
           #settings-repositories: '...'

@@ -1,6 +1,10 @@
 name: 'Verify Terraform'
 on:
   workflow_call:
+    inputs:
+      ref:
+        type: string
+        default: ''
 
 jobs:
   verify-terraform:
@@ -9,6 +13,8 @@ jobs:
     steps:
       - name: 'Checkout'
         uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.comment-branch.outputs.head_ref }}
 
       - name: 'Setup Terraform'
         uses: hashicorp/setup-terraform@v3
