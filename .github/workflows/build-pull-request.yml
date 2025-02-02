@@ -23,4 +23,4 @@ jobs:
     needs: build
     steps:
       - run: |
-          echo "Image: ${{ jobs.build.outputs.image-name }}"
+          echo "Image: ${{ needs.build.outputs.image-name }}"
