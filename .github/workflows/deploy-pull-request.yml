@@ -20,9 +20,6 @@ jobs:
         id: getref
       - run: |
           echo "head_ref=${{ steps.getref.outputs.head_ref }}" >> $GITHUB_OUTPUT
-      - run: |
-          echo Vars ${{ toJson(vars) }}
-          echo Env ${{ toJson(env) }}
 
   build:
     name: 'Build Pull Request'
