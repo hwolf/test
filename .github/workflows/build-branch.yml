@@ -1,6 +1,10 @@
 name: "Build Branch"
 on:
-  push:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
     branches-ignore:
       - main
   workflow_dispatch:
