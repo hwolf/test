@@ -17,4 +17,4 @@ jobs:
 
   terraform:
     name: 'Validate Terraform Scripts'
-    uses: hwolf/workflows/verify-terraform.yml@main
+    uses: hwolf/workflows/.github/workflows/verify-terraform.yml@main
