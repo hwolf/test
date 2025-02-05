@@ -1,6 +1,6 @@
 name: "Create Release Candidate"
 on:
-  deployment_status:
+  deployment:
 
 jobs:
   create:
