@@ -10,6 +10,5 @@ jobs:
     if: github.ref == 'refs/heads/main'
     uses: hwolf/workflows/.github/workflows/build.yml@main
     with:
-      revision: "$(date +%Y%m%d)-${{ github.run_number }}"
       environment: "qa"
     secrets: inherit
