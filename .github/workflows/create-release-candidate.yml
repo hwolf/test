@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.deployment_status.environment == 'qa' && github.event.deployment_status.state == 'success' }}
     steps:
-      - run: |(
+      - run: |
           echo "Env ${{ github.event.deployment_status.environment }}"
           echo "Status ${{ github.event.deployment_status.state }}"
       - run: |
