@@ -1,8 +1,5 @@
 name: "Build Branch"
 on:
-  push:
-    branches-ignore:
-      - main
   workflow_dispatch:
     inputs:
       environment:
@@ -11,6 +8,7 @@ on:
           - none
           - dev
           - test
+          - qa
         default: test
         description: Deploy to environment?
 
@@ -21,5 +19,5 @@ jobs:
     uses: hwolf/workflows/.github/workflows/build.yml@main
     with:
       revision: "$(date +%Y%m%d)-${{ github.sha }}-${{ github.run_number }}"
-      environment: "${{ inputs.environment || 'none' }}"
+      environment: "${{ inputs.environment }}"
     secrets: inherit

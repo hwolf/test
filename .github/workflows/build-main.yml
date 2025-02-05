@@ -3,17 +3,6 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
-    inputs:
-      environment:
-        type: choice
-        options:
-          - none
-          - dev
-          - test
-          - qa
-        default: qa
-        description: Deploy to environment?
 
 jobs:
   build:
@@ -22,5 +11,5 @@ jobs:
     uses: hwolf/workflows/.github/workflows/build.yml@main
     with:
       revision: "$(date +%Y%m%d)-${{ github.run_number }}"
-      environment: "${{ inputs.environment || 'qa' }}"
+      environment: "qa"
     secrets: inherit
