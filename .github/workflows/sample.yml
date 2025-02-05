@@ -13,19 +13,26 @@ on:
   workflow_call:
     inputs:
       environment:
-        type: environment
-        required: false
+        type: choice
         description: Deploy to environment?
+        options:
+          - none
+          - dev
+          - test
+          - qa
+          - prd
+        default:
+          none
 
 jobs:
   parameters:
     name: 'Parameters'
     runs-on: ubuntu-latest
     steps:
-    - name: GitHub
-      run: echo "Github ${{ toJson(github) }}"
-    - name: Inputs
-      run: echo "Github ${{ toJson(inputs) }}"
-    - name: Environment
-      run: |
-          env | sort
+      - name: GitHub
+        run: echo "Github ${{ toJson(github) }}"
+      - name: Inputs
+        run: echo "Github ${{ toJson(inputs) }}"
+      - name: Environment
+        run: env | sort
+
