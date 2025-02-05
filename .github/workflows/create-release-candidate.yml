@@ -3,9 +3,9 @@ on:
   deployment_status:
 
 jobs:
-  if: ${{ (github.event.deployment_status.environment == 'qa') && (github.event.deployment_status.state == 'success') }}
   create:
     runs-on: ubuntu-latest
+    if: ${{ github.event.deployment_status.environment == 'qa' && github.event.deployment_status.state == 'success' }}
     steps:
       - run: |(
           echo "Env ${{ github.event.deployment_status.environment }}"
