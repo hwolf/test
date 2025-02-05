@@ -10,19 +10,12 @@ on:
       - synchronize
     branches:
       - main
-  workflow_call:
+  workflow_dispatch:
     inputs:
       environment:
-        type: choice
+        type: environment
         description: Deploy to environment?
-        options:
-          - none
-          - dev
-          - test
-          - qa
-          - prd
-        default:
-          none
+        required: false
 
 jobs:
   parameters:
