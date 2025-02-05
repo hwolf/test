@@ -15,6 +15,7 @@ on:
 jobs:
   build:
     name: "Build"
+    if: github.ref != 'refs/heads/main'
     uses: hwolf/workflows/.github/workflows/build.yml@main
     with:
       environment: "${{ inputs.environment }}"

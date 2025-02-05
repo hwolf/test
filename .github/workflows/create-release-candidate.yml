@@ -7,8 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "Env ${{ github.deployment_status.environment }}"
-      - run: |
-          echo "Status ${{ github.deployment_status.state }}"
+          echo "Env ${{ github.event.deployment_status.environment }}"
+          echo "Status ${{ github.event.deployment_status.state }}"
       - run: |
           echo "Github ${{ toJson(github) }}"
