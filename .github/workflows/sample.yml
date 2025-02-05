@@ -46,7 +46,7 @@ jobs:
 
   deploy:
     name: Deploy to $ENV
-    if: env.ENV != 'none'
+    if: ${{ env.ENV != 'none' }}
     runs-on: ubuntu-latest
     needs: build
     environment: $ENV
