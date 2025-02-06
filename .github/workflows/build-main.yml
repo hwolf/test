@@ -11,7 +11,7 @@ jobs:
       - uses: hwolf/workflows/build@main
         with:
           environment: "qa"
-          #sonar-token: "${{ secrets.SONAR_TOKEN }}"
+          sonar-token: "${{ secrets.SONAR_TOKEN }}"
 
   #build:
   #  name: "Build"
