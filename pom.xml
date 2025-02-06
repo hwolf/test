@@ -16,6 +16,9 @@
         <revision>local</revision>
         <java.version>17</java.version>
         <docker.imageName>test</docker.imageName>
+
+        <sonar.organization>hwolf</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <dependencies>
