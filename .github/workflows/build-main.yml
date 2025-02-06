@@ -5,12 +5,17 @@ on:
       - main
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: hwolf/workflows/build@main
+        with:
+          environment: "qa"
+          #sonar-token: "${{ secrets.SONAR_TOKEN }}"
+
   test1:
     runs-on: ubuntu-latest
     steps:
-      - uses: hwolf/workflows/test1@main
-        with:
-          inp1: AAAA
       - uses: hwolf/workflows/test2@main
         with:
           inp2: BBBB
