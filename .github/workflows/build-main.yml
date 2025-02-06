@@ -5,10 +5,18 @@ on:
       - main
 
 jobs:
-  build:
-    name: "Build"
-    if: github.ref == 'refs/heads/main'
-    uses: hwolf/workflows/.github/workflows/build.yml@main
-    with:
-      environment: "qa"
-      sonar-token: "${{ secrets.SONAR_TOKEN }}"
+  test1:
+    usus: hwolf/workflows/test1
+    inputs:
+      inp1: AAAA
+  test2:
+    usus: hwolf/workflows/test2
+    inputs:
+      inp2: BBBB
+  #build:
+  #  name: "Build"
+  #  if: github.ref == 'refs/heads/main'
+  #  uses: hwolf/workflows/.github/workflows/build.yml@main
+  #  with:
+  #    environment: "qa"
+  #    sonar-token: "${{ secrets.SONAR_TOKEN }}"
