@@ -1,0 +1,12 @@
+name: "Build Branch"
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy-prod:
+    name: "Deploy to PRD"
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo Deploying ${{ github.ref }} to PRD
+          echo "TODO ..."
