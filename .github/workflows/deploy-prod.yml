@@ -2,12 +2,13 @@ name: "Deploy to PRD"
 on:
   workflow_dispatch:
 
-environment: prd
+concurrency: prd
 
 jobs:
   deploy-prod:
     name: "Deploy to PRD"
     runs-on: ubuntu-latest
+    environment: prd
     steps:
       - run: |
           echo Deploying ${{ github.ref }} to PRD
