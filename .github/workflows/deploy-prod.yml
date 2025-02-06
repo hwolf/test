@@ -1,4 +1,4 @@
-name: "Build Branch"
+name: "Deploy to PRD"
 on:
   workflow_dispatch:
 
