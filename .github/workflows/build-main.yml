@@ -9,10 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - usus: hwolf/workflows/test1@main
-        inputs:
+        with:
           inp1: AAAA
       - usus: hwolf/workflows/test2@main
-        inputs:
+        with:
           inp2: BBBB
   #build:
   #  name: "Build"
