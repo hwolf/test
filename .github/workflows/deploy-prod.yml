@@ -2,6 +2,8 @@ name: "Deploy to PRD"
 on:
   workflow_dispatch:
 
+environment: prd
+
 jobs:
   deploy-prod:
     name: "Deploy to PRD"
