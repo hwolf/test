@@ -13,12 +13,6 @@ jobs:
           environment: "qa"
           #sonar-token: "${{ secrets.SONAR_TOKEN }}"
 
-  test1:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: hwolf/workflows/test2@main
-        with:
-          inp2: BBBB
   #build:
   #  name: "Build"
   #  if: github.ref == 'refs/heads/main'
