@@ -12,7 +12,9 @@ jobs:
 
   deploy-prod:
     name: "Deploy to PRD"
+    needs:
+      - revision
     uses: hwolf/workflows/.github/workflows/deploy.yml@main
     with:
-      revision: "${{ env.revision }}"
+      revision: "$${{ needs.revision.outputs.revision }}"
       environment: "prd"
