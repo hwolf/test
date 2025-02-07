@@ -16,7 +16,9 @@ jobs:
       - revision
     runs-on: ubuntu-latest
     steps:
+      - run: echo "XXX $revision"
       - run: echo "XXX ${{ needs.revision.outputs.revision }}"
+      - run: echo "XXX ${{ toJson(env) }}"
 
   deploy-prod:
     name: "Deploy to PRD"
