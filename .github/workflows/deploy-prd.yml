@@ -9,10 +9,7 @@ jobs:
     steps:
       - run: |
           ref="${{ github.ref }}"
-          echo "XXX $ref"
-          echo "XXX ${{ toJson(github) }}"
-          echo "revision=${ref#"refs/tags/qa-deployed-"}" >> $GITHUB_ENV
-          echo "revision=${ref#"refs/tags/qa-deployed-"}"
+          echo "revision=${ref#"refs/tags/qa-deployed-"}" >> $GITHUB_OUTPUT
 
   dump:
     name: "Dump"
@@ -20,7 +17,7 @@ jobs:
       - revision
     runs-on: ubuntu-latest
     steps:
-      - run: echo "XXX $revision"
+      - run: echo 'XXX $revision'
       - run: echo "XXX ${{ needs.revision.outputs.revision }}"
       - run: echo "XXX ${{ toJson(env) }}"
 
