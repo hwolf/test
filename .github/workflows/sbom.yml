@@ -2,29 +2,17 @@ name: 'SBOM'
 on:
   deployment:
 
-#concurrency: ${{ inputs.environment }}
+concurrency: ${{ github.event.deploymenr.environment }}
 
 jobs:
   sbom:
-    name: 'Upload SBOM'
+    name: 'Upload SBOM for environment ${{ github.event.deploymenr.environment }}'
     runs-on: ubuntu-latest
     steps:
-      - name: 'Setup Maven'
-        uses: s4u/setup-maven-action@v1.18.0
-        with:
-          java-version: 21
-          java-distribution: 'liberica'
-
-      - name: Dump
-        run: |
-          git branch
-          echo XXXXX
-          echo "Github=${{ toJson(github) }}"
-
       - name: 'Generate SBOM'
         run: |
-          mvn -e -B -no-transfer-progress cyclonedx:makeAggregateBom -Drevision="${{ inputs.revision }}"
+          echo "TODO ..."
 
       - name: 'Upload SBOM'
         run: |
-          cat ./target/bom.json
+          echo "TODO ..."
