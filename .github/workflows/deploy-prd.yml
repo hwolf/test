@@ -4,7 +4,7 @@ on:
 
 jobs:
   revision:
-    name: 'Revision'
+    name: 'Find revision'
     runs-on: ubuntu-latest
     steps:
       - run: |
