@@ -6,8 +6,11 @@ jobs:
   revision:
     name: 'Find revision'
     runs-on: ubuntu-latest
+    outputs:
+      revision: ${{ steps.rev.outputs.revision }}
     steps:
-      - run: |
+      - id: rev
+        run: |
           ref="${{ github.ref }}"
           echo "revision=${ref#"refs/tags/qa-deployed-"}" >> $GITHUB_OUTPUT
 
@@ -17,15 +20,13 @@ jobs:
       - revision
     runs-on: ubuntu-latest
     steps:
-      - run: echo 'XXX $revision'
       - run: echo "XXX ${{ needs.revision.outputs.revision }}"
-      - run: echo "XXX ${{ toJson(env) }}"
 
-#  deploy-prod:
-#    name: "Deploy to PRD"
-#    needs:
-#      - revision
-#    uses: hwolf/workflows/.github/workflows/deploy.yml@main
-#    with:
-#      revision: "${{ needs.revision.outputs.revision }}"
-#      environment: "prd"
+  deploy-prod:
+    name: "Deploy to PRD"
+    needs:
+      - revision
+    uses: hwolf/workflows/.github/workflows/deploy.yml@main
+    with:
+      revision: "${{ needs.revision.outputs.revision }}"
+      environment: "prd"
