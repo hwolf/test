@@ -1,4 +1,4 @@
-name: 'Upload SBOM'
+name: 'Test'
 
 on:
   workflow_run:
