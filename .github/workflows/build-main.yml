@@ -6,17 +6,9 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: hwolf/workflows/build@main
-        with:
-          environment: "qa"
-          sonar-token: "${{ secrets.SONAR_TOKEN }}"
-
-  #build:
-  #  name: "Build"
-  #  if: github.ref == 'refs/heads/main'
-  #  uses: hwolf/workflows/.github/workflows/build.yml@main
-  #  with:
-  #    environment: "qa"
-  #    sonar-token: "${{ secrets.SONAR_TOKEN }}"
+    name: "Build"
+    if: github.ref == 'refs/heads/main'
+    uses: hwolf/workflows/.github/workflows/build.yml@main
+    with:
+      environment: "qa"
+    secrets: inherit
