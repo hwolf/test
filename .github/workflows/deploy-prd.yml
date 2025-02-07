@@ -8,7 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "revision=${GITHUB_REF#"refs/tags/qa-deployed-"}" >> $GITHUB_ENV
+          ref="${{ github.ref }}"
+          echo "revision=${ref#"refs/tags/qa-deployed-"}" >> $GITHUB_ENV
 
   dump:
     name: "Dump"
