@@ -14,14 +14,6 @@ jobs:
           ref="${{ github.ref }}"
           echo "revision=${ref#"refs/tags/qa-deployed-"}" >> $GITHUB_OUTPUT
 
-  dump:
-    name: "Dump"
-    needs:
-      - revision
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "XXX ${{ needs.revision.outputs.revision }}"
-
   deploy-prod:
     name: "Deploy to PRD"
     needs:
