@@ -1,0 +1,15 @@
+name: "Build Main"
+on:
+  push:
+    branches:
+      - main
+
+env:
+  revision: ""$(date +%Y%m%d)-${{ github.run_number }}"
+
+jobs:
+  build:
+    name: "Revision"
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "XXX $revision"
