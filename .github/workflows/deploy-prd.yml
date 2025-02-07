@@ -14,5 +14,5 @@ jobs:
     name: "Deploy to PRD"
     uses: hwolf/workflows/.github/workflows/deploy.yml@main
     with:
-      revision: "$revision"
+      revision: "${{ env.revision }}"
       environment: "prd"
