@@ -1,4 +1,4 @@
-name: "Build and Deploy"
+name: "Build and deploy"
 on:
   push:
     branches:
@@ -17,7 +17,7 @@ on:
 
 jobs:
   build:
-    name: "Build"
+    name: "Build and deploy"
     uses: hwolf/workflows/.github/workflows/build.yml@main
     with:
       environment: "${{ inputs.environment || 'qa' }}"

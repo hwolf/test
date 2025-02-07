@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    name: "Build"
+    name: "Build pull request"
     if: github.ref != 'refs/heads/main'
     uses: hwolf/workflows/.github/workflows/build.yml@main
     with:
