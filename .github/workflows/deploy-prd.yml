@@ -1,0 +1,24 @@
+name: "Deploy to PRD"
+on:
+  workflow_dispatch:
+
+jobs:
+  revision:
+    name: 'Find revision'
+    runs-on: ubuntu-latest
+    outputs:
+      revision: ${{ steps.rev.outputs.revision }}
+    steps:
+      - id: rev
+        run: |
+          ref="${{ github.ref }}"
+          echo "revision=${ref#"refs/tags/qa-deployed-"}" >> $GITHUB_OUTPUT
+
+  deploy-prod:
+    name: "Deploy to PRD"
+    needs:
+      - revision
+    uses: hwolf/workflows/.github/workflows/deploy.yml@main
+    with:
+      revision: "${{ needs.revision.outputs.revision }}"
+      environment: "prd"

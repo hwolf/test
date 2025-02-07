@@ -1,5 +1,8 @@
-name: "Build Branch"
+name: "Build and deploy"
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       environment:
@@ -14,9 +17,8 @@ on:
 
 jobs:
   build:
-    name: "Build"
-    if: github.ref != 'refs/heads/main'
+    name: "Build and deploy"
     uses: hwolf/workflows/.github/workflows/build.yml@main
     with:
-      environment: "${{ inputs.environment }}"
+      environment: "${{ inputs.environment || 'qa' }}"
     secrets: inherit

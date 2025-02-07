@@ -1,4 +1,4 @@
-name: "Build Pull Request"
+name: "Build pull request"
 on:
   pull_request:
     types:
@@ -10,8 +10,7 @@ on:
 
 jobs:
   build:
-    name: "Build"
-    if: github.ref != 'refs/heads/main'
+    name: "Build pull request"
     uses: hwolf/workflows/.github/workflows/build.yml@main
     with:
       environment: "none"
