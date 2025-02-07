@@ -1,11 +1,11 @@
-name: "Build Main"
+name: "Test"
 on:
   push:
     branches:
       - main
 
 env:
-  revision: ""$(date +%Y%m%d)-${{ github.run_number }}"
+  revision: "$(date +%Y%m%d)-${{ github.run_number }}"
 
 jobs:
   build:
