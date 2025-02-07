@@ -5,11 +5,16 @@ on:
 concurrency: prd
 
 jobs:
-  deploy-prod:
-    name: "Deploy to PRD"
+  revision:
+    name: 'Revision'
     runs-on: ubuntu-latest
-    environment: prd
     steps:
       - run: |
-          echo Deploying ${{ github.ref }} to PRD
-          echo "TODO ..."
+          echo "revision=${GITHUB_REF#"refs/tags/qa-deployed-"}" >> $GITHUB_ENV
+
+  deploy-prod:
+    name: "Deploy to PRD"
+    uses: hwolf/workflows/.github/workflows/deploy.yml@main
+    with:
+      revision: "$revision"
+      environment: "prd"
