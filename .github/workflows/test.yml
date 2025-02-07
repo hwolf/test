@@ -1,0 +1,18 @@
+name: 'Upload SBOM'
+
+on:
+  workflow_run:
+    workflows: [deploy]
+    types:
+      - completed
+
+#concurrency: ${{ github.event.deployment.environment }}
+
+jobs:
+  dump:
+    name: 'Test'
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "inputs=${{ toJSON(inputs) }}"
+          echo "github=${{ toJSON(github) }}"
