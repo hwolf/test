@@ -2,11 +2,11 @@ name: 'SBOM'
 on:
   deployment:
 
-concurrency: ${{ github.event.deploymenr.environment }}
+concurrency: ${{ github.event.deployment.environment }}
 
 jobs:
   sbom:
-    name: 'Upload SBOM for environment ${{ github.event.deploymenr.environment }}'
+    name: 'Upload SBOM for environment ${{ github.event.deployment.environment }}'
     runs-on: ubuntu-latest
     steps:
       - name: 'Generate SBOM'
