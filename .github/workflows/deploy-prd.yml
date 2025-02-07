@@ -9,7 +9,10 @@ jobs:
     steps:
       - run: |
           ref="${{ github.ref }}"
+          echo "XXX $ref"
+          echo "XXX ${{ toJson(github) }}"
           echo "revision=${ref#"refs/tags/qa-deployed-"}" >> $GITHUB_ENV
+          echo "revision=${ref#"refs/tags/qa-deployed-"}"
 
   dump:
     name: "Dump"
@@ -21,11 +24,11 @@ jobs:
       - run: echo "XXX ${{ needs.revision.outputs.revision }}"
       - run: echo "XXX ${{ toJson(env) }}"
 
-  deploy-prod:
-    name: "Deploy to PRD"
-    needs:
-      - revision
-    uses: hwolf/workflows/.github/workflows/deploy.yml@main
-    with:
-      revision: "${{ needs.revision.outputs.revision }}"
-      environment: "prd"
+#  deploy-prod:
+#    name: "Deploy to PRD"
+#    needs:
+#      - revision
+#    uses: hwolf/workflows/.github/workflows/deploy.yml@main
+#    with:
+#      revision: "${{ needs.revision.outputs.revision }}"
+#      environment: "prd"
