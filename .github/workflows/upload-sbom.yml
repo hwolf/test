@@ -1,6 +1,6 @@
 name: 'Upload SBOM'
 on:
-  deployment:
+#  deployment:
 
 concurrency: dtrack-${{ github.event.deployment.environment }}
 

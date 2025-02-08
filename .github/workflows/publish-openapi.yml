@@ -19,12 +19,10 @@ jobs:
           api-configs: |
             [
               {
-                "branch": "qa",
                 "openapi-json-filepath": "qa.openapi.json",
                 "api-doc-filepath": "qa/docs.html"
               },
               {
-                "branch": "prd",
                 "openapi-json-filepath": "prd.openapi.json",
                 "api-doc-filepath": "prd/docs.html"
               }
