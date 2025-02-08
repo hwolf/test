@@ -18,7 +18,7 @@ on:
 jobs:
   build:
     name: "Build and deploy"
-    uses: hwolf/workflows/.github/workflows/build.yml@main
+    uses: hwolf/workflows/.github/workflows/build-and-deploy.yml@main
     with:
       environment: "${{ inputs.environment || 'qa' }}"
     secrets: inherit
