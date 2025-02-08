@@ -2,7 +2,7 @@ name: 'Upload SBOM'
 on:
   deployment:
 
-concurrency: ${{ github.event.deployment.environment }}
+concurrency: sbom-${{ github.event.deployment.environment }}
 
 jobs:
   sbom:
