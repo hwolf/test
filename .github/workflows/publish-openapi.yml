@@ -19,6 +19,9 @@ jobs:
           curl "https://raw.githubusercontent.com/spring-petclinic/spring-petclinic-rest/refs/heads/master/src/main/resources/openapi.yml" > prd.openapi.json
           ls -la
 
+      - run: |
+          ls -la
+
       - name: 'Publish OpenAPI spec'
         uses: msayson/openapi-github-pages-action@v2.0.0
         with:
