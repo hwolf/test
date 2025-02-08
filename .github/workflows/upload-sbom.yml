@@ -1,0 +1,29 @@
+name: 'Upload SBOM'
+on:
+  deployment:
+
+concurrency: dtrack-${{ github.event.deployment.environment }}
+
+env:
+  environment: ${{ github.event.deployment.environment }}
+
+jobs:
+  sbom:
+    name: 'Upload SBOM for environment $environment'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Get SBOM'
+        run: |
+          echo "TODO ..."
+
+      - name: 'Upload SBOM'
+        run: |
+          echo "TODO ..."
+        #uses: DependencyTrack/gh-upload-sbom@v3
+        #with:
+        #  serverHostname: 'example.com'
+        #  apiKey: ${{ secrets.DEPENDENCYTRACK_APIKEY }}
+        #  projectName: 'Example Project'
+        #  projectVersion: '$environment'
+        #  bomFilename: "/path/to/bom.xml"
+        #  autoCreate: true
