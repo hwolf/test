@@ -1,0 +1,32 @@
+name: 'Publish OpenAPI spec'
+on:
+  workflow_dispatch:
+
+jobs:
+  sbom:
+    name: 'Publish OpenAPI spec for environment $environment'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Get OpenAPI'
+        run: |
+          echo "TODO ..."
+          curl "https://raw.githubusercontent.com/spring-petclinic/spring-petclinic-rest/refs/heads/master/src/main/resources/openapi.yml" > qa.openapi.json
+          curl "https://raw.githubusercontent.com/spring-petclinic/spring-petclinic-rest/refs/heads/master/src/main/resources/openapi.yml" > prd.openapi.json
+
+      - name: 'Publish OpenAPI spec'
+        uses: msayson/openapi-github-pages-action@v2.0.0
+        with:
+          api-configs: |
+            [
+              {
+                "branch": "qa",
+                "openapi-json-filepath": "qa.openapi.json",
+                "api-doc-filepath": "qa/docs.html"
+              },
+              {
+                "branch": "prd",
+                "openapi-json-filepath": "prd.openapi.json",
+                "api-doc-filepath": "prd/docs.html"
+              }
+            ]
+          api-docs-dir: docs
