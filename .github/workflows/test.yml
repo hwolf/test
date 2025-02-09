@@ -1,13 +1,7 @@
 name: 'Test'
 
 on:
-  workflow_run:
-    workflows:
-      - Build and deploy
-    types:
-      - completed
-
-#concurrency: ${{ github.event.deployment.environment }}
+  workflow_dispatch:
 
 jobs:
   dump:
@@ -16,4 +10,7 @@ jobs:
     steps:
       - run: |
           echo "inputs=${{ toJSON(inputs) }}"
+      - run: |
           echo "github=${{ toJSON(github) }}"
+      - run: |
+          env | sort
