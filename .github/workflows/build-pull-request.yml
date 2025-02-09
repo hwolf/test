@@ -13,7 +13,5 @@ on:
 jobs:
   build:
     name: "Build pull request"
-    uses: hwolf/workflows/.github/workflows/build-and-deploy.yml@main
-    with:
-      environment: "none"
+    uses: hwolf/workflows/.github/workflows/build-pull-request.yml@main
     secrets: inherit
