@@ -26,7 +26,7 @@ jobs:
     secrets: inherit
 
   terraform:
-    name: 'Validate Terraform'
+    name: 'Terraform'
     uses: hwolf/workflows/.github/workflows/verify-terraform.yml@main
 
   deploy:
