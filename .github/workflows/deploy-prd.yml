@@ -1,4 +1,6 @@
 name: "Deploy to PRD"
+run-name: "Deploy ${{ github.ref_name }} to prd by @${{ github.actor }}"
+
 on:
   workflow_dispatch:
 
@@ -11,8 +13,8 @@ jobs:
     steps:
       - id: rev
         run: |
-          ref="${{ github.ref }}"
-          echo "revision=${ref#"refs/tags/qa-deployed-"}" >> $GITHUB_OUTPUT
+          ref="${{ github.ref_name }}"
+          echo "revision=${ref#"qa-deployed-"}" >> $GITHUB_OUTPUT
 
   deploy-prod:
     name: "Deploy to PRD"
