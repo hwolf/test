@@ -12,6 +12,12 @@ on:
 
 jobs:
   build:
-    name: "Build pull request"
-    uses: hwolf/workflows/.github/workflows/build-pull-request.yml@main
+    name: 'Build'
+    uses: hwolf/workflows/.github/workflows/build.yml@main
+    with:
+      publish-image: ${{ inputs.environment != 'none' }}
     secrets: inherit
+
+  terraform:
+    name: 'Terraform'
+    uses: hwolf/workflows/.github/workflows/verify-terraform.yml@main
