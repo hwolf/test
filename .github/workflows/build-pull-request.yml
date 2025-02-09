@@ -1,10 +1,6 @@
 name: "Build pull request"
 run-name: "Build PR ${{ github.event.number }} (${{ github.head_ref }}) by @${{ github.actor }}"
 
-concurrency:
-  group: "build-pull-request"
-  cancel-in-progress: false
-
 on:
   pull_request:
     types:
