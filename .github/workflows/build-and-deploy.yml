@@ -1,5 +1,5 @@
 name: "Build and deploy"
-run-name: "Build and deploy branch ${{ github.ref_name }} to ${{ inputs.environment || 'qa' }} by @${{ github.actor }}"
+run-name: "Build and deploy branch ${{ github.ref_name }} to environment ${{ inputs.environment || 'qa' }} by @${{ github.actor }}"
 
 on:
   push:
@@ -22,7 +22,7 @@ jobs:
     name: 'Build'
     uses: hwolf/workflows/.github/workflows/build.yml@main
     with:
-      publish-image: ${{ inputs.environment != 'none' }}
+      publish-image: "${{ inputs.environment != 'none' }}"
     secrets: inherit
 
   terraform:
@@ -37,7 +37,5 @@ jobs:
       - terraform
     uses: hwolf/workflows/.github/workflows/deploy.yml@main
     with:
-      image-tag: "${{ github.sha }}"
-#      revision: "${{ needs.build.outputs.revision }}"
       environment: "${{ inputs.environment || 'qa' }}"
     secrets: inherit

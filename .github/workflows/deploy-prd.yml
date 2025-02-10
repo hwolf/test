@@ -4,11 +4,7 @@ run-name: "Deploy to prd by @${{ github.actor }}"
 on:
   deployment
 
-#permissions: write-all
-
-concurrency:
-  group: start-prd-deploy
-  cancel-in-progress: true
+permissions: write-all
 
 jobs:
 #  revision:
@@ -29,6 +25,5 @@ jobs:
 #      - revision
     uses: hwolf/workflows/.github/workflows/deploy.yml@main
     with:
-      image-tag: "${{ github.sha }}"
 #      revision: "${{ needs.revision.outputs.revision }}"
       environment: "prd"
