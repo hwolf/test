@@ -2,6 +2,7 @@ name: "Deploy to PRD (2)"
 run-name: "Deploy ${{ github.ref_name }} to prd by @${{ github.actor }}"
 
 on:
+  deployment:
   deployment_status:
 
 jobs:
