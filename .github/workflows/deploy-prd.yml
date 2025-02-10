@@ -6,7 +6,9 @@ on:
 
 #permissions: write-all
 
-concurrency: deploy-prd
+concurrency:
+  group: start-prd-deploy
+  cancel-in-progress: true
 
 jobs:
 #  revision:
