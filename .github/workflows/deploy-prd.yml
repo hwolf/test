@@ -6,6 +6,8 @@ on:
 
 #permissions: write-all
 
+concurrency: deploy-prd
+
 jobs:
 #  revision:
 #    name: 'Find revision'
@@ -20,6 +22,7 @@ jobs:
 
   deploy-prod:
     name: "Deploy to PRD"
+    if: github.event.deployment.environment == 'qa'
 #    needs:
 #      - revision
     uses: hwolf/workflows/.github/workflows/deploy.yml@main
