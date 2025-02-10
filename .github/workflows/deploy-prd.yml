@@ -2,7 +2,7 @@ name: "Deploy to PRD"
 run-name: "Deploy to prd by @${{ github.actor }}"
 
 on:
-  deployment
+  workflow_dispatch:
 
 permissions: write-all
 
